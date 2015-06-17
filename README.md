@@ -37,15 +37,15 @@ JAVA WEB开发课程设计
  > 字符串比较不区分大小写，防止用户名重复。  
  > 防止出现全是空格的字符串。
 
- - com/z/util/bConnectDB 数据库连接类
- - com/z/util/bSession 会话类
- - com/z/util/bRouter 路径类
- - com/z/action/api servlet
+ - com/z/util/BConnectDB 数据库连接类
+ - com/z/util/BSession 会话类
+ - com/z/util/BRouter 路径类
+ - com/z/action/BApi servlet
  - com/z/module/login 登录操作
  - com/z/module/logout 登出
  - com/z/module/...
- - com/z/lib/bPasswordHash
- - com/z/lib/bUser 用户类
+ - com/z/lib/BPasswordHash
+ - com/z/lib/BUser 用户类
   - isExistID(uid) boolean *用户ID是否存在*
   - isExistName(name) boolean *用户名是否存在*
   - isAdmin(uid) boolean *是否管理员*
@@ -63,7 +63,7 @@ JAVA WEB开发课程设计
   - createHash(pwd) String *加密密码* 参考：http://drops.wooyun.org/papers/1066
   - validatePassword(pwd, hash) *比较密码和hash*
   
- - com/z/lib/bBoard 板块类
+ - com/z/lib/BBoard 板块类
   - isExistID(id) boolean *板块ID是否存在*
   - isExistName(name) int 名称重复模块ID *板块名是否存在*
   - add(name, pid=0) boolean *添加板块*
@@ -74,14 +74,14 @@ JAVA WEB开发课程设计
   - delete(id) boolean *删除板块*
   - update(id, name, pid=0) boolean *更新板块* 名称如果和本身重复则继续
 
-- com/z/lib/bTip 帖子类
+- com/z/lib/BTip 帖子类
   - isExistID(id) boolean *帖子ID是否存在*
   - isExistTitle(title) int 标题重复帖子ID *标题是否存在*
   - add(title, content, uid, bid, realFile="", makeFile="") boolean *添加文章*
   - update(id, title, content, uid, bid, realFile="", makeFile="") boolean *更新文章* 标题如果和本身重复则继续
   - delete(id) boolean *删除帖子*
  
-- com/z/lib/bReply
+- com/z/lib/BReply
   - isExistID(id) boolean *评论是否存在*
   - delete(id) boolean *删除评论*
   - add(title, content, uid, tid, realFile="", mFile="") boolean *添加评论*
