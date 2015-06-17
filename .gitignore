@@ -1,0 +1,9 @@
+/JavaWebFinal/nbproject/private/
+/JavaWebFinal/build/
+.buildpath
+.project
+.settings
+*.swp
+*~
+~*
+.~*
