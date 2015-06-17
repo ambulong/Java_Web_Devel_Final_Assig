@@ -36,6 +36,7 @@ JAVA WEB开发课程设计
  > 用户名、标题记得去除前后空格（trim()）。  
  > 字符串比较不区分大小写，防止用户名重复。  
  > 防止出现全是空格的字符串。
+
  - com/z/util/bConnectDB 数据库连接类
  - com/z/util/bSession 会话类
  - com/z/util/bRouter 路径类
