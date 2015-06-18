@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.BRouter;
+import util.BSession;
 
 /**
  *
@@ -30,7 +31,11 @@ public class BApi extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
+        //会话
+        BSession bs = new BSession(request);
+        bs.init();
+        System.out.println(bs.getToken());
         //路由
         BRouter br = new BRouter(request, response);
         br.init();
@@ -49,10 +54,11 @@ public class BApi extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            System.out.println("doget");
             processRequest(request, response);
-            
-            
         } catch (ServletException | IOException ex) {
+            Logger.getLogger(BApi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(BApi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -68,7 +74,12 @@ public class BApi extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            System.out.println("dopost");
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BApi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

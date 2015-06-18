@@ -5,7 +5,10 @@
  */
 package util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -13,7 +16,12 @@ import java.util.Random;
  */
 public class BFunctions {
 
-    public String getRandomString(int length) {
+    public static String getDatetime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return df.format(new Date());
+    }
+
+    public static String getRandomString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
@@ -22,5 +30,18 @@ public class BFunctions {
             sb.append(base.charAt(number));
         }
         return sb.toString();
+    }
+
+    public static boolean chkToken(HttpServletRequest request) {
+        String token = request.getParameter("token") != null ? request.getParameter("token").trim() : "";
+        if (token.equals("")) {
+            return false;
+        }
+        BSession bsession = new BSession(request);
+        if (token.equals(bsession.getToken())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

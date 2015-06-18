@@ -8,10 +8,10 @@ JAVA WEB开发课程设计
  - ./index.html
  - ./api?m=login *登录*
   - req: username, password
-  - res(json): status(0,未登录 1.执行成功 -1.执行失败), info, data(token)
+  - res(json): status(0,未登录 1.执行成功 -1.执行失败), msg, data(token)
  - ./api?m=logout *退出*
   - req: token
-  - res(json): status, info, data
+  - res(json): status, msg, data
  - ./api?m=getBoards *获取板块列表*
  - ./api?m=getUid *获取当前用户ID*
  - ./api?m=getUserInfo *获取用户公开资料*
@@ -44,7 +44,7 @@ JAVA WEB开发课程设计
  - com/z/util/BRespJson 返回JSON类
  - com/z/util/BRouter 路径类
  - com/z/util/BConfig 配置类
- - com/z/action/BApi servlet
+ - com/z/action/BApi 入口（servlet）
  - com/z/module/Login 登录操作
  - com/z/module/Logout 登出
  - com/z/module/...
@@ -58,17 +58,15 @@ JAVA WEB开发课程设计
   - isExistID(uid) boolean *用户ID是否存在*
   - isExistName(name) boolean *用户名是否存在*
   - add(BUserBean) boolean *添加用户*
-  - auth(name, pwd) boolean *校验用户名密码*
+  - chkLogin(name, pwd) boolean *校验用户名密码*
   - updatePassword(uid, pwd) boolean *更改密码*
   - updateProfile(BUserBean) boolean *更改资料*
   - isAdmin(uid) boolean *是否管理员*
   - getID(name) int *获取ID*
-  - getDetail(uid) ArrayList *获取详细信息*
-  - getPassword(uid) String *获取密码*
-  - getAvatar(uid) String *获取头像*
-  - getName(uid) String *获取用户名*
-  - createHash(pwd) String *加密密码* 参考：http://drops.wooyun.org/papers/1066
-  - validatePassword(pwd, hash) *比较密码和hash*
+  - getDetail(uid) BUserBean *获取详细信息*
+  - getHash(uid) String *获取密码*
+  - getHead(uid) String *获取头像*
+  - getUsername(uid) String *获取用户名*
  - com/z/lib/BBoardBean
  - com/z/lib/BBoard 板块类
   - isExistID(id) boolean *板块ID是否存在*

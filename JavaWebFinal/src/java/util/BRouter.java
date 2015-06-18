@@ -46,16 +46,19 @@ public class BRouter {
         mods.add("deleteReply");
     }
     
-    public void init() throws IOException{
+    public void init() throws IOException, Exception{
         this.module = this.request.getParameter("m") != null?this.request.getParameter("m"):"";
         if(mods.indexOf(this.module) != -1){
             if(this.module.equals("register")){
                 Register register = new Register(this.request, this.response);
                 register.init();
+            }else if(this.module.equals("login")){
+                Login login = new Login(this.request, this.response);
+                login.init();
             }
         }else{
             this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.setContentType("text/plain;charset=UTF-8");
+            this.response.setContentType("text/plain;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("Module "+ this.module + " is not found");
         }

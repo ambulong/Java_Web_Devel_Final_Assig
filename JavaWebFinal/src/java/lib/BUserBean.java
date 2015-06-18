@@ -9,7 +9,8 @@ package lib;
  *
  * @author Ambulong
  */
-public class BUserBean implements java.io.Serializable{
+public class BUserBean implements java.io.Serializable {
+
     private int id;
     private String username;
     private String password;
@@ -20,98 +21,139 @@ public class BUserBean implements java.io.Serializable{
     private String gendertoString;
     private int flag;
     
-    public void setId(int id){
+    public BUserBean(){
+        this.flag = 2; //normal user
+    }
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
-    
-    public void setUsername(String str){
+
+    public void setUsername(String str) {
         this.username = str.trim();
     }
-    
-    public String getUsername(){
+
+    public String getUsername() {
         return this.username;
     }
-    
-    public void setPassword(String str){
+
+    public void setPassword(String str) {
         this.password = str;
     }
-    
-    public String getPassword(){
+
+    public String getPassword() {
         return this.password;
     }
-    
-    public void setAge(int age){
+
+    public void setAge(int age) {
         this.age = age;
     }
-    
-    public int getAge(){
+
+    public int getAge() {
         return this.age;
     }
-    
-    public void setRegtime(String str){
+
+    public void setRegtime(String str) {
         this.regtime = str.trim();
     }
-    
-    public String getRegtime(){
+
+    public String getRegtime() {
         return this.regtime;
     }
-    
-    public void setHead(String str){
+
+    public void setHead(String str) {
         this.head = str.trim();
     }
-    
-    public String getHead(){
+
+    public String getHead() {
         return this.head;
     }
-    
-    public void setGender(int gender){
+
+    public void setGender(int gender) {
         this.gender = gender;
-        if(gender == 0)
+        if (gender == 0) {
             this.gendertoString = "男";
-        else if(gender == 1)
+        } else if (gender == 1) {
             this.gendertoString = "女";
-        else
+        } else {
             this.gendertoString = "其它";
+        }
     }
-    
-    public int getGender(){
+
+    public int getGender() {
         return this.gender;
     }
-    
-    public String getGendertoString(){
+
+    public String getGendertoString() {
         return this.gendertoString;
     }
-    
-    public void setFlag(int flag){
+
+    public void setFlag(int flag) {
         this.flag = flag;
     }
-    
-    public int getFlag(){
+
+    public int getFlag() {
         return this.flag;
     }
-    
-    public boolean validate(){
-        if(!validateStr(username))
+
+    public boolean validate() {
+        if (!validateStr(username) || !chkName(username)) {
+            System.out.println("username: "+username);
             return false;
-        if(!validateStr(password) || password.length() <= 6)
+        }
+        if (!validateStr(password) || password.length() <= 6) {
+            System.out.println("password "+password);
             return false;
-        if(age < 0)
+        }
+        if (age < 0) {
+            System.out.println("age: "+age);
             return false;
-        if(!validateStr(head))
+        }
+        if (!validateStr(head)) {
+            System.out.println("head: "+head);
             return false;
-        if(gender < 0)
+        }
+        if (gender < 0) {
+            System.out.println("gender: "+gender);
             return false;
+        }
         return true;
     }
     
-    private boolean validateStr(String str){
-        if(str == null || str.equals(""))
+    public boolean validateProfile() {
+        if (age < 0) {
+            System.out.println("age: "+age);
             return false;
-        else
+        }
+        if (!validateStr(head)) {
+            System.out.println("head: "+head);
+            return false;
+        }
+        if (gender < 0) {
+            System.out.println("gender: "+gender);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateStr(String str) {
+        if (str == null || str.equals("")) {
+            return false;
+        } else {
             return true;
+        }
+    }
+
+    private boolean chkName(String str) {
+        if (str.length() <= 6 || str.length() >= 12) {
+            return false;
+        }
+        if (!str.matches("^[0-9a-zA-Z]*")) {
+            return false;
+        }
+        return true;
     }
 }

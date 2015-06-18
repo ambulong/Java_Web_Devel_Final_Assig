@@ -9,7 +9,7 @@ package lib;
  *
  * @author Ambulong
  */
-public class BTipBean implements java.io.Serializable{
+public class BReplyBean implements java.io.Serializable{
     private int id;
     private String title;
     private String content;
