@@ -40,10 +40,12 @@ JAVA WEB开发课程设计
  - com/z/util/BConnectDB 数据库连接类
  - com/z/util/BSession 会话类
  - com/z/util/BRouter 路径类
+ - com/z/util/BConfig 配置类
  - com/z/action/BApi servlet
  - com/z/module/login 登录操作
  - com/z/module/logout 登出
  - com/z/module/...
+ - com/z/lib/BFunctions
  - com/z/lib/BPasswordHash
  - com/z/lib/BUser 用户类
   - isExistID(uid) boolean *用户ID是否存在*
