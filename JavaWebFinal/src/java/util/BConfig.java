@@ -8,7 +8,6 @@ package util;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -16,15 +15,18 @@ import java.util.Properties;
  * @author Ambulong
  */
 public class BConfig {
-    private Properties prop;
+    private final Properties prop;
     
-    private String siteName;
-    private String siteUrl;
-    private String sqlDriver;
-    private String sqlUrl;
-    private String sqlUser;
-    private String sqlPassword;
+    private final String siteName;
+    private final String siteUrl;
+    private final String imgUri;
+    private final String attachUri;
+    private final String sqlDriver;
+    private final String sqlUrl;
+    private final String sqlUser;
+    private final String sqlPassword;
     
+    @SuppressWarnings("empty-statement")
     public BConfig() throws FileNotFoundException, IOException{
         this.prop = new Properties();
         String packagePath = this.getClass().getResource("").getPath();
@@ -34,6 +36,8 @@ public class BConfig {
         
         this.siteName = prop.getProperty("sitename");
         this.siteUrl = prop.getProperty("siteurl");
+        this.imgUri = prop.getProperty("imguri");
+        this.attachUri = prop.getProperty("attachuri");
         this.sqlDriver = prop.getProperty("driver");
         this.sqlPassword = prop.getProperty("password");
         this.sqlUrl = prop.getProperty("url");
@@ -46,6 +50,14 @@ public class BConfig {
     
     public String getSiteUrl(){
         return this.siteUrl;
+    }
+    
+    public String getImgUri(){
+        return this.imgUri;
+    }
+    
+    public String getAttachUri(){
+        return this.attachUri;
     }
     
     public String getSqlDriver(){

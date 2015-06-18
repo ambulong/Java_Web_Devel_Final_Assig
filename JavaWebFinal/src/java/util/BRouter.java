@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import module.*;
 
 /**
  *
@@ -48,9 +49,10 @@ public class BRouter {
     public void init() throws IOException{
         this.module = this.request.getParameter("m") != null?this.request.getParameter("m"):"";
         if(mods.indexOf(this.module) != -1){
-            //response.setContentType("text/html;charset=UTF-8");
-            //PrintWriter out = response.getWriter();
-            //out.println("Module "+ this.module);
+            if(this.module.equals("register")){
+                Register register = new Register(this.request, this.response);
+                register.init();
+            }
         }else{
             this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.setContentType("text/plain;charset=UTF-8");

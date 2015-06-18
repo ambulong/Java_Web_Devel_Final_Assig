@@ -29,6 +29,8 @@ JAVA WEB开发课程设计
  - ./api?m=deleteTip *删除帖子*
  - ./api?m=addReply *添加评论*
  - ./api?m=deleteReply *删除评论*
+ - ./api?m=uploadAttachment *上传附件*
+ - ./api?m=uploadImg *上传图片*
  
 ###模块
 
@@ -39,6 +41,7 @@ JAVA WEB开发课程设计
 
  - com/z/util/BConnectDB 数据库连接类
  - com/z/util/BSession 会话类
+ - com/z/util/BRespJson 返回JSON类
  - com/z/util/BRouter 路径类
  - com/z/util/BConfig 配置类
  - com/z/action/BApi servlet
@@ -47,16 +50,18 @@ JAVA WEB开发课程设计
  - com/z/module/...
  - com/z/lib/BFunctions
  - com/z/lib/BPasswordHash
+ - com/z/lib/BUserBean
+  - chkName(name) boolean *校验用户名是否符合要求* 只允许英文字母和数字，长度大于3
+  - chkPassword(pwd) boolean *校验密码是否符合要求* 长度大于6
+  - validate() boolean *校验数据是否符合要求*
  - com/z/lib/BUser 用户类
   - isExistID(uid) boolean *用户ID是否存在*
   - isExistName(name) boolean *用户名是否存在*
-  - isAdmin(uid) boolean *是否管理员*
-  - chkName(name) boolean *校验用户名是否符合要求* 只允许英文字母和数字，长度大于3
-  - chkPassword(pwd) boolean *校验密码是否符合要求* 长度大于6
-  - add(name, pwd, birth, avatar, gender) boolean *添加用户*
+  - add(BUserBean) boolean *添加用户*
   - auth(name, pwd) boolean *校验用户名密码*
   - updatePassword(uid, pwd) boolean *更改密码*
-  - updateProfile(birth, avatar, gender) boolean *更改资料*
+  - updateProfile(BUserBean) boolean *更改资料*
+  - isAdmin(uid) boolean *是否管理员*
   - getID(name) int *获取ID*
   - getDetail(uid) ArrayList *获取详细信息*
   - getPassword(uid) String *获取密码*
@@ -64,26 +69,25 @@ JAVA WEB开发课程设计
   - getName(uid) String *获取用户名*
   - createHash(pwd) String *加密密码* 参考：http://drops.wooyun.org/papers/1066
   - validatePassword(pwd, hash) *比较密码和hash*
-  
+ - com/z/lib/BBoardBean
  - com/z/lib/BBoard 板块类
   - isExistID(id) boolean *板块ID是否存在*
   - isExistName(name) int 名称重复模块ID *板块名是否存在*
   - add(name, pid=0) boolean *添加板块*
-  - getID(name) int *获取板块ID*
   - getName(id) String *获取板块名*
   - getChildren(id) int[] *获取子板块*
   - hasChildren(id) boolean *是否有子板块*
   - delete(id) boolean *删除板块*
-  - update(id, name, pid=0) boolean *更新板块* 名称如果和本身重复则继续
-
-- com/z/lib/BTip 帖子类
+  - update(id, name, pid=0) boolean *更新板块*
+ - com/z/lib/BTipBean
+ - com/z/lib/BTip 帖子类
   - isExistID(id) boolean *帖子ID是否存在*
   - isExistTitle(title) int 标题重复帖子ID *标题是否存在*
-  - add(title, content, uid, bid, realFile="", makeFile="") boolean *添加文章*
-  - update(id, title, content, uid, bid, realFile="", makeFile="") boolean *更新文章* 标题如果和本身重复则继续
+  - add(BTipBean) boolean *添加文章*
+  - update(BTipBean) boolean *更新文章*
   - delete(id) boolean *删除帖子*
- 
-- com/z/lib/BReply
+ - com/z/lib/BReplyBean
+ - com/z/lib/BReply
   - isExistID(id) boolean *评论是否存在*
   - delete(id) boolean *删除评论*
   - add(title, content, uid, tid, realFile="", mFile="") boolean *添加评论*
