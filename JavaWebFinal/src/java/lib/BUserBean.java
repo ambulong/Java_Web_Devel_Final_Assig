@@ -22,6 +22,8 @@ public class BUserBean implements java.io.Serializable {
     private int flag;
     
     public BUserBean(){
+        this.age = -1;
+        this.gender = -1;
         this.flag = 2; //normal user
     }
     public void setId(int id) {

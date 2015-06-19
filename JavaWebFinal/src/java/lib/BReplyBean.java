@@ -15,9 +15,17 @@ public class BReplyBean implements java.io.Serializable{
     private String content;
     private String pubtime;
     private int uid;
-    private int bid;
+    private int tid;
     private String realfile;
     private String makefile;
+    
+    public BReplyBean(){
+        this.id = 0;
+        this.uid = 0;
+        this.tid = 0;
+        this.realfile = "";
+        this.makefile = "";
+    }
     
     public void setId(int id){
         this.id = id;
@@ -59,12 +67,12 @@ public class BReplyBean implements java.io.Serializable{
         return this.uid;
     }
     
-    public void setBid(int bid){
-        this.bid = bid;
+    public void setTid(int tid){
+        this.tid = tid;
     }
     
-    public int getBid(){
-        return this.bid;
+    public int getTid(){
+        return this.tid;
     }
     
     public void setRealfile(String str){
@@ -88,7 +96,7 @@ public class BReplyBean implements java.io.Serializable{
             return false;
         if(!validateStr(content))
             return false;
-        if(uid <= 0 || bid <= 0)
+        if(uid <= 0 || tid <= 0)
             return false;
         return true;
     }

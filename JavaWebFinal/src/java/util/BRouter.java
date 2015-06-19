@@ -25,6 +25,7 @@ public class BRouter {
         this.request = request;
         this.response = response;
         mods = new ArrayList();
+        mods.add("getToken");
         mods.add("login");
         mods.add("logout");
         mods.add("getBoards");
@@ -49,12 +50,30 @@ public class BRouter {
     public void init() throws IOException, Exception{
         this.module = this.request.getParameter("m") != null?this.request.getParameter("m"):"";
         if(mods.indexOf(this.module) != -1){
-            if(this.module.equals("register")){
-                Register register = new Register(this.request, this.response);
-                register.init();
+            if(this.module.equals("getToken")){
+                GetToken obj = new GetToken(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("register")){
+                Register obj = new Register(this.request, this.response);
+                obj.init();
             }else if(this.module.equals("login")){
-                Login login = new Login(this.request, this.response);
-                login.init();
+                Login obj = new Login(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("logout")){
+                Logout obj = new Logout(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("updatePassword")){
+                UpdatePassword obj = new UpdatePassword(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("updateProfile")){
+                UpdateProfile obj = new UpdateProfile(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("getUid")){
+                GetUid obj = new GetUid(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("getUserInfo")){
+                GetUserInfo obj = new GetUserInfo(this.request, this.response);
+                obj.init();
             }
         }else{
             this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);

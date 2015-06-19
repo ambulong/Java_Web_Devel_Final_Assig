@@ -8,6 +8,8 @@ package module;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lib.BBoard;
+import lib.BBoardBean;
 import util.BFunctions;
 import util.BRespJson;
 import util.BSession;
@@ -16,12 +18,11 @@ import util.BSession;
  *
  * @author Ambulong
  */
-public class Logout {
-
+public class DeleteBoard {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
-    public Logout(HttpServletRequest request, HttpServletResponse response) {
+    public DeleteBoard(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
     }
@@ -40,13 +41,25 @@ public class Logout {
             return;
         }
 
-        bs.destroy();
-        if (bs.isLogin()) {
-            brj.resp(-1, "退出出错", null);
-            return;
-        }else{
-            brj.resp(1, "退出成功", null);
+        if (!bs.isAdmin()) {
+            brj.resp(0, "权限不够", null);
             return;
         }
+
+        BBoard bb = new BBoard();
+        
+        int id = this.request.getParameter("id") != null ? Integer.parseInt(this.request.getParameter("id").trim()) : 0;
+        if(bb.isExistID(id)){
+            brj.resp(-1, "板块不存在", null);
+            return;
+        }
+        
+
+        if (bb.delete(id)) {
+            brj.resp(1, "删除成功", null);
+        } else {
+            brj.resp(-1, "删除失败", null);
+        }
+        return;
     }
 }

@@ -90,9 +90,13 @@ public class BUser {
             ps.setInt(6, bub.getGender());
             ps.setInt(7, bub.getFlag());
 
-            ps.executeUpdate();
+            int result = ps.executeUpdate();
             ps.close();
-            return true;
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             throw e;
         }
@@ -144,6 +148,7 @@ public class BUser {
             ps.setInt(4, bub.getId());
 
             int result = ps.executeUpdate();
+            ps.close();
             if (result > 0) {
                 return true;
             } else {
@@ -171,6 +176,7 @@ public class BUser {
             ps.setInt(2, uid);
 
             int result = ps.executeUpdate();
+            ps.close();
             if (result > 0) {
                 return true;
             } else {

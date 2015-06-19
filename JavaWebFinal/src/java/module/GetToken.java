@@ -6,6 +6,10 @@
 package module;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.BFunctions;
@@ -16,37 +20,25 @@ import util.BSession;
  *
  * @author Ambulong
  */
-public class Logout {
-
+public class GetToken {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
-    public Logout(HttpServletRequest request, HttpServletResponse response) {
+    public GetToken(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
     }
-
+    
     public void init() throws IOException, Exception {
         BRespJson brj = new BRespJson(request, response);
         BSession bs = new BSession(request);
 
-        if (!BFunctions.chkToken(this.request)) {
-            brj.resp(-1, "Invalid Token", null);
-            return;
-        }
-
-        if (!bs.isLogin()) {
-            brj.resp(0, "未登录", null);
-            return;
-        }
-
-        bs.destroy();
-        if (bs.isLogin()) {
-            brj.resp(-1, "退出出错", null);
-            return;
-        }else{
-            brj.resp(1, "退出成功", null);
-            return;
-        }
+        List<Map> dataList = new ArrayList<Map>();
+        Map<String, String> map = new<String, String> HashMap();  
+        map.put( "token", bs.getToken());
+        dataList.add(map);
+        //System.out.println("getUid: "+map.toString());
+        brj.resp(1, "", dataList);
+        return;
     }
 }

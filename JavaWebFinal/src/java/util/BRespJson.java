@@ -29,6 +29,7 @@ public class BRespJson {
     }
 
     public void resp(int status, String msg, List<Map> list) throws IOException {
+            //System.out.println("Resp: "+list.toString());
             JSONObject jo = new JSONObject();
             JSONArray ja = JSONArray.fromObject(list);
             jo.put("status", status);
@@ -38,6 +39,7 @@ public class BRespJson {
             this.response.setContentType("text/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.print(json);
+            return;
     }
 
 }

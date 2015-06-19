@@ -6,30 +6,41 @@ JAVA WEB开发课程设计
 
 ###地址
  - ./index.html
+ - ./api?m=getToken
  - ./api?m=login *登录*
   - req: username, password
   - res(json): status(0,未登录 1.执行成功 -1.执行失败), msg, data(token)
  - ./api?m=logout *退出*
   - req: token
   - res(json): status, msg, data
- - ./api?m=getBoards *获取板块列表*
- - ./api?m=getUid *获取当前用户ID*
- - ./api?m=getUserInfo *获取用户公开资料*
- - ./api?m=getTips *获取帖子列表*
- - ./api?m=getTipDetail *获取帖子详细内容*
- - ./api?m=getReplies *获取回复内容*
+ - ./api?m=getBoards *获取板块列表(需登录)*
+ - ./api?m=getUid *获取当前用户ID*(需登录)
+ - ./api?m=getUserInfo *获取当前用户资料(需登录)*
+  - req:token
+ - ./api?m=getTips *获取帖子列表(需登录)*
+  - req:bid(default 0 get all)
+ - ./api?m=getTipDetail *获取帖子详细内容(需登录)*
+ - ./api?m=getReplies *获取回复内容(需登录)*
+  - req: tid
  - ./api?m=register *添加用户*
- - ./api?m=updateProfile *更改资料*
- - ./api?m=updatePassword *更改密码*
- - ./api?m=addBoard *添加板块*
- - ./api?m=updateBoard *更改板块*
- - ./api?m=deleteBoard *删除板块*
- - ./api?m=addTip *添加帖子*
- - ./api?m=updateTip *更改帖子*
- - ./api?m=deleteTip *删除帖子*
- - ./api?m=addReply *添加评论*
- - ./api?m=deleteReply *删除评论*
- - ./api?m=uploadAttachment *上传附件*
+ - ./api?m=updateProfile *更改资料(需登录)*
+ - ./api?m=updatePassword *更改密码(需登录)*
+ - ./api?m=addBoard *添加板块(需登录&管理)*
+  - req: name, pid
+ - ./api?m=updateBoard *更改板块(需登录&管理)*
+  - req: id, name, pid
+ - ./api?m=deleteBoard *删除板块(需登录&管理)*
+ - ./api?m=addTip *添加帖子(需登录)*
+  - req: bid，title，content, realfile, makefile
+ - ./api?m=updateTip *更改帖子(需登录，防越权)*
+  - req: id, bid，title，content, realfile, makefile
+ - ./api?m=deleteTip *删除帖子(需登录，防越权)*
+  - req: id
+ - ./api?m=addReply *添加评论(需登录)*
+  - req: tid，title，content, realfile, makefile
+ - ./api?m=deleteReply *删除评论(需登录&管理)*
+  - req: id
+ - ./api?m=uploadAttachment *上传附件(需登录)*
  - ./api?m=uploadImg *上传图片*
  
 ###模块
@@ -70,23 +81,29 @@ JAVA WEB开发课程设计
  - com/z/lib/BBoardBean
  - com/z/lib/BBoard 板块类
   - isExistID(id) boolean *板块ID是否存在*
-  - isExistName(name) int 名称重复模块ID *板块名是否存在*
-  - add(name, pid=0) boolean *添加板块*
+  - add(BBoardBean) boolean *添加板块*
   - getName(id) String *获取板块名*
-  - getChildren(id) int[] *获取子板块*
+  - getDetail(id) BBoardBean *获取板块信息*
+  - getChildren(id) BBoardBean[] *获取子板块ID*
   - hasChildren(id) boolean *是否有子板块*
   - delete(id) boolean *删除板块*
-  - update(id, name, pid=0) boolean *更新板块*
+  - update(BBoardBean) boolean *更新板块*
+  - getBoardList() BBoardBean[] *获取全部板块*
  - com/z/lib/BTipBean
  - com/z/lib/BTip 帖子类
   - isExistID(id) boolean *帖子ID是否存在*
-  - isExistTitle(title) int 标题重复帖子ID *标题是否存在*
+  - getTitle(id) String *获取标题*
+  - getContent(id) String *获取内容*
+  - getDetail(id) BTipBean *获取信息*
   - add(BTipBean) boolean *添加文章*
   - update(BTipBean) boolean *更新文章*
   - delete(id) boolean *删除帖子*
  - com/z/lib/BReplyBean
  - com/z/lib/BReply
   - isExistID(id) boolean *评论是否存在*
+  - getTitle(id) String *获取标题*
+  - getContent(id) String *获取内容*
+  - getDetail(id) BReplyBean *获取信息*
   - delete(id) boolean *删除评论*
-  - add(title, content, uid, tid, realFile="", mFile="") boolean *添加评论*
+  - add(BReplyBean) boolean *添加评论*
   

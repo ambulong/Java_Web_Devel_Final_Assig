@@ -19,6 +19,14 @@ public class BTipBean implements java.io.Serializable{
     private String realfile;
     private String makefile;
     
+    public BTipBean(){
+        this.id = 0;
+        this.uid = 0;
+        this.bid = 0;
+        this.realfile = "";
+        this.makefile = "";
+    }
+    
     public void setId(int id){
         this.id = id;
     }

@@ -44,8 +44,14 @@ public class UpdateProfile {
         }
 
         String age = this.request.getParameter("age") != null ? this.request.getParameter("age").trim() : "-1";
+        if (age.equals("")) {
+            age = "-1";
+        }
         String head = this.request.getParameter("head") != null ? this.request.getParameter("head").trim() : "";
         String gender = this.request.getParameter("gender") != null ? this.request.getParameter("gender").trim() : "-1";
+        if (gender.equals("")) {
+            gender = "-1";
+        }
 
         bub.setId(bs.getUid());
         bub.setAge(Integer.parseInt(age));

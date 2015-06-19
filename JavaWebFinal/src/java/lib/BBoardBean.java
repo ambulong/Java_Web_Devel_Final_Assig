@@ -14,6 +14,10 @@ public class BBoardBean implements java.io.Serializable{
     private String name;
     private int pid;
     
+    public BBoardBean(){
+        id = 0;
+        pid = 0;
+    }
     public void setId(int id){
         this.id = id;
     }
@@ -36,5 +40,20 @@ public class BBoardBean implements java.io.Serializable{
     
     public int getPid(){
         return this.pid;
+    }
+    
+    public boolean validate(){
+        if(!validateStr(name))
+            return false;
+        if(pid < 0)
+            return false;
+        return true;
+    }
+    
+    private boolean validateStr(String str){
+        if(str == null || str.equals(""))
+            return false;
+        else
+            return true;
     }
 }

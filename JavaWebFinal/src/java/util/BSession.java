@@ -25,7 +25,20 @@ public class BSession {
             String sid = session.getId();
             session.setAttribute("token", BFunctions.getRandomString(50));
             session.setAttribute("uid", 0);
+            session.setAttribute("flag", 0);
         }
+    }
+    
+    public int getFlag() {
+        try {
+            return (int) session.getAttribute("flag");
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public void setFlag(int flag) {
+        session.setAttribute("flag", flag);
     }
 
     public int getUid() {
@@ -50,6 +63,14 @@ public class BSession {
 
     public boolean isLogin() {
         if (this.getUid() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean isAdmin() {
+        if (this.getFlag() == 1) {
             return true;
         } else {
             return false;

@@ -60,6 +60,7 @@ public class Login {
                 return;
             }else{
                 bs.setUid(id);
+                bs.setFlag(buser.getFlag(id));
                 brj.resp(1, "登录成功", null);
                 return;
             }
