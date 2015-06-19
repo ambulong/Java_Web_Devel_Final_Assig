@@ -41,11 +41,6 @@ public class GetTips {
             brj.resp(-1, "Invalid Token", null);
             return;
         }
-
-        if (!bs.isLogin()) {
-            brj.resp(0, "未登录", null);
-            return;
-        }
         
         BBoard bb = new BBoard();
         int bid = this.request.getParameter("bid") != null ? Integer.parseInt(this.request.getParameter("bid").trim()) : -1;

@@ -26,6 +26,7 @@ public class BRouter {
         this.response = response;
         mods = new ArrayList();
         mods.add("getToken");
+        mods.add("getFlag");
         mods.add("login");
         mods.add("logout");
         mods.add("getBoards");
@@ -53,6 +54,9 @@ public class BRouter {
             if(this.module.equals("getToken")){
                 GetToken obj = new GetToken(this.request, this.response);
                 obj.init();
+            }else if(this.module.equals("getFlag")){
+                GetFlag obj = new GetFlag(this.request, this.response);
+                obj.init();
             }else if(this.module.equals("register")){
                 Register obj = new Register(this.request, this.response);
                 obj.init();
@@ -74,6 +78,43 @@ public class BRouter {
             }else if(this.module.equals("getUserInfo")){
                 GetUserInfo obj = new GetUserInfo(this.request, this.response);
                 obj.init();
+            }else if(this.module.equals("getBoards")){
+                GetBoards obj = new GetBoards(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("getTips")){
+                GetTips obj = new GetTips(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("getTipDetail")){
+                GetTipDetail obj = new GetTipDetail(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("addBoard")){
+                AddBoard obj = new AddBoard(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("updateBoard")){
+                UpdateBoard obj = new UpdateBoard(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("deleteBoard")){
+                DeleteBoard obj = new DeleteBoard(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("addTip")){
+                AddTip obj = new AddTip(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("updateTip")){
+                UpdateTip obj = new UpdateTip(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("deleteTip")){
+                DeleteTip obj = new DeleteTip(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("addReply")){
+                AddReply obj = new AddReply(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("deleteReply")){
+                DeleteReply obj = new DeleteReply(this.request, this.response);
+                obj.init();
+            }else if(this.module.equals("uploadAttachment")){
+                
+            }else if(this.module.equals("uploadImg")){
+                
             }
         }else{
             this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);

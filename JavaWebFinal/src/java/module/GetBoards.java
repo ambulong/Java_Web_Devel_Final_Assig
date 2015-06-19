@@ -13,10 +13,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lib.BBoard;
+import lib.BBoardBean;
 import lib.BReply;
 import lib.BReplyBean;
 import lib.BTip;
-import lib.BTipBean;
 import lib.BUser;
 import util.BFunctions;
 import util.BRespJson;
@@ -26,11 +26,11 @@ import util.BSession;
  *
  * @author Ambulong
  */
-public class GetReplies {
+public class GetBoards {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
-    public GetReplies(HttpServletRequest request, HttpServletResponse response) {
+    public GetBoards(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
     }
@@ -44,29 +44,16 @@ public class GetReplies {
             return;
         }
         
-        BTip bt = new BTip();
-        int tid = this.request.getParameter("tid") != null ? Integer.parseInt(this.request.getParameter("tid").trim()) : -1;
-        if(!bt.isExistID(tid)){
-            brj.resp(-1, "帖子不存在", null);
-            return;
-        }
-        
-        BReply br = new BReply();
-        BReplyBean[] brbs = br.getReplyList(tid);
-        BUser bu = new BUser();
-        
+        BBoard bb = new BBoard();
+        BBoardBean[] bbb = bb.getBoardList();
+
         List<Map> dataList = new ArrayList<Map>();
-        for(int i=0; i<brbs.length; i++){
+        for(int i=0; i<bbb.length; i++){
             Map<String, String> map = new<String, String> HashMap();  
-            map.put( "content", brbs[i].getContent());
-            map.put( "makefile", brbs[i].getMakefile());
-            map.put( "pubtime", brbs[i].getPubtime());
-            map.put( "realfile", brbs[i].getRealfile());
-            map.put( "title", brbs[i].getTitle());
-            map.put( "id", brbs[i].getId()+"");
-            map.put( "tid", brbs[i].getTid()+"");
-            map.put( "uid", brbs[i].getUid()+"");
-            map.put( "author", bu.getUsername(brbs[i].getUid()) );
+            map.put( "name", bbb[i].getName());
+            map.put( "id", bbb[i].getId()+"");
+            map.put( "pid", bbb[i].getPid()+"");
+            
             dataList.add(map);
         }
 

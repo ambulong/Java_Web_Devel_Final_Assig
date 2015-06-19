@@ -7,20 +7,21 @@ JAVA WEB开发课程设计
 ###地址
  - ./index.html
  - ./api?m=getToken
+ - ./api?m=getFlag
  - ./api?m=login *登录*
   - req: username, password
   - res(json): status(0,未登录 1.执行成功 -1.执行失败), msg, data(token)
  - ./api?m=logout *退出*
   - req: token
   - res(json): status, msg, data
- - ./api?m=getBoards *获取板块列表(需登录)*
- - ./api?m=getUid *获取当前用户ID*(需登录)
+ - ./api?m=getBoards *获取板块列表*
+ - ./api?m=getUid *获取当前用户ID(需登录)*
  - ./api?m=getUserInfo *获取当前用户资料(需登录)*
   - req:token
- - ./api?m=getTips *获取帖子列表(需登录)*
+ - ./api?m=getTips *获取帖子列表*
   - req:bid(default 0 get all)
- - ./api?m=getTipDetail *获取帖子详细内容(需登录)*
- - ./api?m=getReplies *获取回复内容(需登录)*
+ - ./api?m=getTipDetail *获取帖子详细内容*
+ - ./api?m=getReplies *获取回复内容*
   - req: tid
  - ./api?m=register *添加用户*
  - ./api?m=updateProfile *更改资料(需登录)*
