@@ -1,0 +1,144 @@
+@CHARSET "UTF-8";
+
+html,body {
+	background: #FFF;
+	color: #444;
+	width: 100%;
+	height: 100%;
+	font-family: 'Roboto', sans-serif;
+}
+
+div,span,a,ul,tr,li,p,img,button,input {
+	transition-property: all;
+	transition-duration: 300ms;
+	transition-timing-function: linear;
+	-moz-transition-property: all;
+	-moz-transition-duration: 300ms;
+	-moz-transition-timing-function: linear;
+	-webkit-transition-property: all;
+	-webkit-transition-duration: 300ms;
+	-webkit-transition-timing-function: linear;
+	-o-transition-property: all;
+	-o-transition-duration: 300ms;
+	-o-transition-timing-function: linear;
+}
+
+.hidden {
+	display: none;
+}
+
+.page {
+	height: 100%;
+	width: 100%;
+	padding: 1em;
+}
+
+#page-login form {
+	max-width: 30em;
+	margin: 5% auto;
+}
+
+#page-chgPassword form {
+	max-width: 30em;
+	margin: 5% auto;
+}
+
+#page-main .table-hover tbody tr {
+	cursor: pointer;
+}
+
+#host-info {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	float: left;
+	border:solid #ddd;
+	border-width: 0 1px 1px 0;
+	background: #fff;
+}
+#host-info .table-responsive {
+	width:100%;
+	max-width:35em;
+}
+#host-info table {
+	margin: 0;
+	border:solid #ddd;
+	border-width: 0 0 1px 0;
+}
+#host-info .btn {
+	width: 100%;
+	padding: 0.5em 1em;
+	text-align: right;
+	cursor: pointer;
+	background-color: #f5f5f5;
+}
+.hover {
+	background-color: #f5f5f5;
+}
+.hide {
+	display: none;
+}
+#command {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#command .content{
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+#command .input {
+	padding: 0.4em 0 0.4em 4em;
+}
+#command .input input[name='command'] {
+	width: 100%;
+	padding: 0.3em 0 0.3em 2em;
+	border: none;
+}
+#command .input span {
+	position: absolute;
+	top: 0;
+	padding: 0.7em 0.5em 0.7em 0.7em;
+	color: #008BFF;
+	font-weight: bold;
+}
+#command .content {
+	font-size: 0.7em;
+}
+#command .content .result {
+	border: #EAEAEA solid;
+	border-width: 1px 0 0 0;
+	
+}
+#command .content .waiting {
+	border: #EAEAEA solid;
+	border-width: 1px 0 1px 0;
+}
+#command .content .item{
+	padding: 0.1em 0.5em;
+}
+#command .content .item span {
+	padding: 0 0.5em;
+	font-weight: bold;
+}
+#command .content .waiting span {
+	color: #E0AA00;
+}
+#command .content .command span{
+	color: #236E25;
+}
+#command .content .response span{
+	color: #C7C7C7;
+}
+#command .content .command{
+	color: #236E25;
+}
+#command .content .waiting {
+	color: #B56000;
+}
+#command .content .response {
+	color: #747474;
+}

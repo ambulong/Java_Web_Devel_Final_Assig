@@ -52,21 +52,21 @@ public class GetReplies {
         }
         
         BReply br = new BReply();
-        BReplyBean[] brbs = br.getReplyList(tid);
+        List<BReplyBean> brbs = br.getReplyList(tid);
         BUser bu = new BUser();
         
         List<Map> dataList = new ArrayList<Map>();
-        for(int i=0; i<brbs.length; i++){
+        for(int i=0; i<brbs.size(); i++){
             Map<String, String> map = new<String, String> HashMap();  
-            map.put( "content", brbs[i].getContent());
-            map.put( "makefile", brbs[i].getMakefile());
-            map.put( "pubtime", brbs[i].getPubtime());
-            map.put( "realfile", brbs[i].getRealfile());
-            map.put( "title", brbs[i].getTitle());
-            map.put( "id", brbs[i].getId()+"");
-            map.put( "tid", brbs[i].getTid()+"");
-            map.put( "uid", brbs[i].getUid()+"");
-            map.put( "author", bu.getUsername(brbs[i].getUid()) );
+            map.put( "content", brbs.get(i).getContent());
+            map.put( "makefile", brbs.get(i).getMakefile());
+            map.put( "pubtime", brbs.get(i).getPubtime());
+            map.put( "realfile", brbs.get(i).getRealfile());
+            map.put( "title", brbs.get(i).getTitle());
+            map.put( "id", brbs.get(i).getId()+"");
+            map.put( "tid", brbs.get(i).getTid()+"");
+            map.put( "uid", brbs.get(i).getUid()+"");
+            map.put( "author", bu.getUsername(brbs.get(i).getUid()) );
             dataList.add(map);
         }
 

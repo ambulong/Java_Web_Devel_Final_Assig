@@ -50,7 +50,7 @@ public class UpdatePassword {
         }
 
         BUser buser = new BUser();
-        if (!buser.chkLogin(bs.getUid(), password)) {
+        if (!buser.chkLogin(bs.getUid(), oldpassword)) {
             brj.resp(-1, "原密码错误", null);
             return;
         } else {

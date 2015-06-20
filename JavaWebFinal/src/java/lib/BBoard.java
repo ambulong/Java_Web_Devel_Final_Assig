@@ -8,6 +8,8 @@ package lib;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import util.BConnectDB;
 import util.BFunctions;
 
@@ -216,7 +218,7 @@ public class BBoard {
         }
     }
     
-    public BBoardBean[] getBoardList() throws Exception {
+    public List<BBoardBean> getBoardList() throws Exception {
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -225,17 +227,19 @@ public class BBoard {
             
             rs = ps.executeQuery();
             
-            BBoardBean[] bbbs = null;
+            List<BBoardBean> list = new ArrayList<BBoardBean>();
             
-            int i=0;
-            if(rs.next()){
-                bbbs[i].setId(rs.getInt("id"));
-                bbbs[i].setName(rs.getString("name"));
-                bbbs[i].setPid(rs.getInt("pid"));
-                i++;
+            while(rs.next()){
+                System.out.println(rs.getString("name"));
+                BBoardBean bbb = new BBoardBean();
+                bbb = new BBoardBean();
+                bbb.setId(rs.getInt("id"));
+                bbb.setName(rs.getString("name"));
+                bbb.setPid(rs.getInt("pid"));
+                list.add(bbb);
             }
             
-            return bbbs;
+            return list;
         } catch (Exception e) {
             throw e;
         }

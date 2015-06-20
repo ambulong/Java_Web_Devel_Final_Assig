@@ -45,14 +45,16 @@ public class GetBoards {
         }
         
         BBoard bb = new BBoard();
-        BBoardBean[] bbb = bb.getBoardList();
+        List<BBoardBean> bbbs = bb.getBoardList();
+        System.out.println("BoardList length: "+bbbs.size());
 
         List<Map> dataList = new ArrayList<Map>();
-        for(int i=0; i<bbb.length; i++){
+        for(int i=0; i<bbbs.size(); i++){
             Map<String, String> map = new<String, String> HashMap();  
-            map.put( "name", bbb[i].getName());
-            map.put( "id", bbb[i].getId()+"");
-            map.put( "pid", bbb[i].getPid()+"");
+            System.out.println("BoardList test: "+bbbs.get(i).getName());
+            map.put( "name", bbbs.get(i).getName());
+            map.put( "id", bbbs.get(i).getId()+"");
+            map.put( "pid", bbbs.get(i).getPid()+"");
             
             dataList.add(map);
         }

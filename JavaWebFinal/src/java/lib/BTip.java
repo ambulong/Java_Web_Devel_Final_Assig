@@ -8,6 +8,8 @@ package lib;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import util.BConnectDB;
 import util.BFunctions;
 
@@ -204,7 +206,7 @@ public class BTip {
         }
     }
     
-    public BTipBean[] getTipList(int bid) throws Exception {
+    public List<BTipBean> getTipList(int bid) throws Exception {
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -213,27 +215,31 @@ public class BTip {
                 ps = conn.prepareStatement(sql);
             }else{
                 String sql = "select * from tip where `bid` = ? order by `id` desc";
-                ps.setInt(1, bid);
+                
                 ps = conn.prepareStatement(sql);
+                
+                ps.setInt(1, bid);
             }
             rs = ps.executeQuery();
             
-            BTipBean[] btbs = null;
+            List<BTipBean> list = new ArrayList<BTipBean>();
             
-            int i=0;
-            if(rs.next()){
-                btbs[i].setBid(rs.getInt("bid"));
-                btbs[i].setContent(rs.getString("content"));
-                btbs[i].setId(rs.getInt("id"));
-                btbs[i].setMakefile(rs.getString("makefile"));
-                btbs[i].setPubtime(rs.getString("pubtime"));
-                btbs[i].setRealfile(rs.getString("realfile"));
-                btbs[i].setTitle(rs.getString("title"));
-                btbs[i].setUid(rs.getInt("uid"));
-                i++;
+            
+            while(rs.next()){
+                BTipBean btb = new BTipBean();
+                btb.setBid(rs.getInt("bid"));
+                btb.setContent(rs.getString("content"));
+                btb.setId(rs.getInt("id"));
+                btb.setMakefile(rs.getString("makefile"));
+                btb.setPubtime(rs.getString("pubtime"));
+                btb.setRealfile(rs.getString("realfile"));
+                btb.setTitle(rs.getString("title"));
+                btb.setUid(rs.getInt("uid"));
+                
+                list.add(btb);
             }
             
-            return btbs;
+            return list;
         } catch (Exception e) {
             throw e;
         }

@@ -50,21 +50,21 @@ public class GetTips {
         }
         
         BTip bt = new BTip();
-        BTipBean[] btbs = bt.getTipList(bid);
+        List<BTipBean> btbs = bt.getTipList(bid);
         BUser bu = new BUser();
         
         List<Map> dataList = new ArrayList<Map>();
-        for(int i=0; i<btbs.length; i++){
+        for(int i=0; i<btbs.size(); i++){
             Map<String, String> map = new<String, String> HashMap();  
-            //map.put( "content", btbs[i].getContent() );
-            //map.put( "makefile", btbs[i].getMakefile() );
-            map.put( "pubtime", btbs[i].getPubtime() );
-            //map.put( "realfile", btbs[i].getRealfile() );
-            map.put( "title", btbs[i].getTitle() );
-            map.put( "bid", btbs[i].getBid()+"" );
-            map.put( "id", btbs[i].getId()+"" );
-            map.put( "uid", btbs[i].getUid()+"" );
-            map.put( "author", bu.getUsername(btbs[i].getUid()) );
+            //map.put( "content", btbs.get(i).getContent() );
+            //map.put( "makefile", btbs.get(i).getMakefile() );
+            map.put( "pubtime", btbs.get(i).getPubtime() );
+            //map.put( "realfile", btbs.get(i).getRealfile() );
+            map.put( "title", btbs.get(i).getTitle() );
+            map.put( "bid", btbs.get(i).getBid()+"" );
+            map.put( "id", btbs.get(i).getId()+"" );
+            map.put( "uid", btbs.get(i).getUid()+"" );
+            map.put( "author", bu.getUsername(btbs.get(i).getUid()) );
             dataList.add(map);
         }
 

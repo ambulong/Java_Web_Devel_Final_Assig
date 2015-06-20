@@ -8,6 +8,8 @@ package lib;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import util.BConnectDB;
 import util.BFunctions;
 
@@ -204,33 +206,33 @@ public class BReply {
         }
     }
 
-    public BReplyBean[] getReplyList(int tid) throws Exception {
+    public List<BReplyBean> getReplyList(int tid) throws Exception {
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
 
-            String sql = "select * from reply where `bid` = ? order by `id` desc";
-            ps.setInt(1, tid);
+            String sql = "select * from reply where `tid` = ? order by `id` desc";
             ps = conn.prepareStatement(sql);
-
+            ps.setInt(1, tid);
+            
             rs = ps.executeQuery();
-
-            BReplyBean[] brbs = null;
-
-            int i = 0;
-            if (rs.next()) {
-                brbs[i].setTid(rs.getInt("tid"));
-                brbs[i].setContent(rs.getString("content"));
-                brbs[i].setId(rs.getInt("id"));
-                brbs[i].setMakefile(rs.getString("makefile"));
-                brbs[i].setPubtime(rs.getString("pubtime"));
-                brbs[i].setRealfile(rs.getString("realfile"));
-                brbs[i].setTitle(rs.getString("title"));
-                brbs[i].setUid(rs.getInt("uid"));
-                i++;
+            
+            List<BReplyBean> list = new ArrayList<BReplyBean>();
+            
+            while (rs.next()) {
+                BReplyBean brb = new BReplyBean();
+                brb.setTid(rs.getInt("tid"));
+                brb.setContent(rs.getString("content"));
+                brb.setId(rs.getInt("id"));
+                brb.setMakefile(rs.getString("makefile"));
+                brb.setPubtime(rs.getString("pubtime"));
+                brb.setRealfile(rs.getString("realfile"));
+                brb.setTitle(rs.getString("title"));
+                brb.setUid(rs.getInt("uid"));
+                list.add(brb);
             }
 
-            return brbs;
+            return list;
         } catch (Exception e) {
             throw e;
         }

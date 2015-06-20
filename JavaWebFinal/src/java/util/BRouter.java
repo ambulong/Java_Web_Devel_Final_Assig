@@ -111,6 +111,9 @@ public class BRouter {
             }else if(this.module.equals("deleteReply")){
                 DeleteReply obj = new DeleteReply(this.request, this.response);
                 obj.init();
+            }else if(this.module.equals("getReplies")){
+                GetReplies obj = new GetReplies(this.request, this.response);
+                obj.init();
             }else if(this.module.equals("uploadAttachment")){
                 
             }else if(this.module.equals("uploadImg")){
