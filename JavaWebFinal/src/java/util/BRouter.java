@@ -21,9 +21,12 @@ public class BRouter {
     private final ArrayList mods;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
-    public BRouter(HttpServletRequest request, HttpServletResponse response){
+    private final String path;
+    public BRouter(HttpServletRequest request, HttpServletResponse response, String path){
         this.request = request;
         this.response = response;
+        this.path = path;
+        //System.out.println("BRouter path: "+path);
         mods = new ArrayList();
         mods.add("getToken");
         mods.add("getFlag");
@@ -46,6 +49,8 @@ public class BRouter {
         mods.add("deleteTip");
         mods.add("addReply");
         mods.add("deleteReply");
+        mods.add("uploadAttachment");
+        mods.add("uploadImg");
     }
     
     public void init() throws IOException, Exception{
@@ -115,9 +120,11 @@ public class BRouter {
                 GetReplies obj = new GetReplies(this.request, this.response);
                 obj.init();
             }else if(this.module.equals("uploadAttachment")){
-                
+                UploadAttachment obj = new UploadAttachment(this.request, this.response, path);
+                obj.init();
             }else if(this.module.equals("uploadImg")){
-                
+                UploadImg obj = new UploadImg(this.request, this.response, path);
+                obj.init();
             }
         }else{
             this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);

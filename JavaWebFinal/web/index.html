@@ -13,12 +13,300 @@
         <script src="./js/jquery.cookie.js"></script>
         <script src="./js/module.js"></script>
         <script src="./js/main.js"></script>
+        <script src="./js/login.js"></script>
+        <script src="./js/logout.js"></script>
+        <script src="./js/register.js"></script>
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
     </head>
     <body>
+        <div id="header">
+            <div class="header-title pull-left">BBS Demo</div>
+            <div class="header-guest pull-right">
+                <div class="icon-login" title="登录"><span></span></div>
+                <div class="icon-register" title="注册"><span></span></div>
+            </div>
+            <div class="header-user pull-right">
+                <div class="icon-profile" title="个人资料"><span></span></div>
+                <div class="icon-password" title="修改密码"><span></span></div>
+                <div class="icon-logout" title="退出"><span></span></div>
+            </div>
+        </div>
 
-        <div>TODO write content</div>
+        <div id="main">
+            <div id="tiplist" class="page">
+                <div id="boards">
+                    <div bid="0" id="board-all" class="board-item" title="全部">
+                        <span>全部</span>
+                    </div>
+                    <div bid="1" class="board-item board-m" title="板块">
+                        <span>板块</span>
+                        <div class="board-m-delete for-admin" title="删除">x</div>
+                    </div>
+                    <div bid="1" class="board-item board-m" title="板块">
+                        <span>板块</span>
+                        <div class="board-m-delete for-admin" title="删除">x</div>
+                    </div>
+                    <div bid="1" class="board-item board-m" title="板块">
+                        <span>板块</span>
+                        <div class="board-m-delete for-admin" title="删除">x</div>
+                    </div>
+                    <div bid="-1" id="board-add" class="board-item for-admin" title="添加板块">
+                        <span>添加</span>
+                    </div>
+                </div>
+                <div id="sub-boards">
+                    <div pid="1" class="sub-board">
+                        <div class="sub-board-item sub-board-m">
+                            <span>子板块</span>
+                            <div class="sub-board-m-delete for-admin" title="删除">x</div>
+                        </div>
+                        <div class="sub-board-item sub-board-m">
+                            <span>子板块</span>
+                            <div class="sub-board-m-delete for-admin" title="删除">x</div>
+                        </div>
+                        <div class="sub-board-item sub-board-add for-admin" title="添加子板块"><span>添加</span></div>
+                    </div>
+                </div>
+                <div id="tips">
+                    <div id="addTip" class="for-user">新帖子</div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>主题</th>
+                                <th>分类</th>
+                                <th cols="2">发布人</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>dddd测试</td>
+                                <td>ddd</td>
+                                <td>ddd</td>
+                                <td><div class="tip-delete for-user" title="删除">删除</div>
+                                    <div class="tip-edit for-user" title="编辑">编辑</div></td>
+                            </tr>
+                            <tr>
+                                <td>dddd</td>
+                                <td>ddd</td>
+                                <td>ddd</td>
+                                <td><div class="tip-delete for-user" title="删除">删除</div>
+                                    <div class="tip-edit for-user" title="编辑">编辑</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tipdetail" class="page hidden">
+                <div class="tip">
+                    <div class="tip-title"><h1>测试标题</h1></div>
+                    <div class="tip-board"><span class="label label-info">测试分类</span></div>
+                    <div class="for-user tip-reply">回复</div><br>
+                        <hr />
+                        <div class="tip-author">
+                            <img src="http://bbs.feicuig.com/uploads/default/original/1X/e1048510eee55ae48e866c4d659e31957a08af19.jpg" />
+                            <span>author</span>
+                        </div>
+                        <div class="tip-pubtime">2014-00-00 00:00:00</div>
+                        <div class="tip-content">safasdfasdfaewsadfssssssssdfsfawrfaaaaaaasdfeawr</div>
+                </div>
+                <div class="reply">
+                    <div class="reply-title"><h3>测试标题</h3></div>
+                    <hr />
+                    <div class="reply-author">
+                        <img src="http://bbs.feicuig.com/uploads/default/original/1X/e1048510eee55ae48e866c4d659e31957a08af19.jpg" />
+                        <span>author</span>
+                    </div>
+                    <div class="reply-pubtime">2014-00-00 00:00:00</div>
+                    <div class="reply-content">safasdfasdfaewsadfssssssssdfsfawrfaaaaaaasdfeawr</div>
+                </div>
+
+            </div>
+        </div>
+        <div id="bottom">
+            <div id="bottom-login" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">登录</div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="usernameLoginInput">用户名</label>
+                        <input type="text" class="form-control" id="inputLoginUsername" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLoginPassword">密码</label>
+                        <input type="password" class="form-control" id="inputLoginPassword" placeholder="密码">
+                    </div>
+                    <button type="button" id="btnLogin" class="btn btn-default">登录</button>
+                </form>
+            </div>
+            <div id="bottom-register" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">注册</div>
+                <form class="form">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label class="sr-only" for="inputRegUsername">用户名</label>
+                                    <input type="text" class="form-control" id="inputRegUsername" placeholder="用户名" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label class="sr-only" for="inputRegAge">年龄</label>
+                                    <input type="text" class="form-control" id="inputRegAge" placeholder="年龄" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label class="sr-only" for="inputRegPassword">密码</label>
+                                    <input type="password" class="form-control" id="inputRegPassword" placeholder="密码" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label class="sr-only" for="inputRegGender">性别</label>
+                                    <select class="form-control" id="inputRegGender">
+                                        <option value="0">男</option>
+                                        <option value="1">女</option>
+                                        <option value="2">其它</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label class="sr-only" for="inputRegRepeatPassword">重复密码</label>
+                                    <input type="password" class="form-control" id="inputRegRepeatPassword" placeholder="重复密码" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="inputRegHead" class="pull-left">头像&nbsp;&nbsp;</label>
+                                    <input type="file" id="inputRegHeadFile" class="pull-left" />
+                                    <input type="hidden" id="inputRegHead" value=""/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="head">
+                        <button type="button" id="btnRegister" class="btn btn-default">提交</button>
+                </form>
+            </div>
+            <div id="bottom-addBoard" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">添加板块</div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="nameAddBoardInput"></label>
+                        <input type="text" class="form-control" id="nameAddBoardInpute" placeholder="板块名">
+                    </div>
+                    <button type="button" id="btnAddBoard" class="btn btn-default">添加</button>
+                </form>
+            </div>
+            <div id="bottom-addTip" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">新帖子</div>
+                <form>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputAddTipTitle">标题</label>
+                        <input type="text" class="form-control" id="inputAddTipTitle" placeholder="标题" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 20%; margin-left: 1em;">
+                        <label class="sr-only" for="inputAddTipBoard">分类</label>
+                        <select class="form-control" id="inputAddTipBoard">
+                            <option>分类</option>
+                            <option>分类</option>
+                            <option>分类</option>
+                        </select>
+                    </div>
+                    <div class="form-group pull-left" style="width: 20%; margin-left: 1em;">
+                        <button type="button" class="btn btn-warning">上传附件</button>
+                        <input type="file" id="inputAddTipAttach" class="hidden pull-left" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputAddTipBoard">内容</label>
+                        <textarea class="form-control" id="inputAddTipContent" placeholder="帖子内容" rows="3"></textarea>
+                    </div>
+                    <div class="form-group pull-left" style="width: 40%; margin-left: 1em;">
+                        <label class="sr-only" for="inputAddTipAttachment">附件</label>
+                        <p class="form-control-static">无附件</p>
+                        <input type="hidden" class="form-control" id="inputAddTipAttachment" placeholder="无附件" />
+                    </div>
+                    <div class="form-group pull-left" style="clear: both;">
+                        <button type="button" id="btnAddTip" class="btn btn-default">提交</button>
+                    </div>
+                </form>
+            </div>
+            <div id="bottom-editTip" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">编辑帖子</div>
+                <form>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputEditTipTitle">标题</label>
+                        <input type="text" class="form-control" id="inputEditTipTitle" placeholder="标题" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 20%; margin-left: 1em;">
+                        <label class="sr-only" for="inputEditTipBoard">分类</label>
+                        <select class="form-control" id="inputEditTipBoard">
+                            <option>分类</option>
+                            <option>分类</option>
+                            <option>分类</option>
+                        </select>
+                    </div>
+                    <div class="form-group pull-left" style="width: 20%; margin-left: 1em;">
+                        <button type="button" class="btn btn-warning">上传附件</button>
+                        <input type="file" id="inputEditTipAttach" class="hidden pull-left" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputEditTipBoard">内容</label>
+                        <textarea class="form-control" id="inputEditTipContent" placeholder="帖子内容" rows="3"></textarea>
+                    </div>
+                    <div class="form-group pull-left" style="width: 40%; margin-left: 1em;">
+                        <label class="sr-only" for="inputEditTipAttachment">附件</label>
+                        <p class="form-control-static">无附件</p>
+                        <input type="hidden" class="form-control" id="inputEditTipAttachment" placeholder="无附件" />
+                    </div>
+                    <div class="form-group pull-left" style="clear: both;">
+                        <button type="button" id="btnEditTip" class="btn btn-default">提交</button>
+                    </div>
+                </form>
+            </div>
+            <div id="bottom-addReply" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">新回复: afarawerafdefa</div>
+                <form>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputAddReplyTitle">标题</label>
+                        <input type="text" class="form-control" id="inputAddReplyTitle" placeholder="标题" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 20%; margin-left: 1em;">
+                        <button type="button" class="btn btn-warning">上传附件</button>
+                        <input type="file" id="inputAddReplyAttach" class="hidden pull-left" />
+                    </div>
+                    <div class="form-group pull-left" style="width: 50%;">
+                        <label class="sr-only" for="inputAddReplyBoard">内容</label>
+                        <textarea class="form-control" id="inputAddReplyContent" placeholder="回复内容" rows="3"></textarea>
+                    </div>
+                    <div class="form-group pull-left" style="width: 40%; margin-left: 1em;">
+                        <label class="sr-only" for="inputAddReplyAttachment">附件</label>
+                        <p class="form-control-static">无附件</p>
+                        <input type="hidden" class="form-control" id="inputAddReplyAttachment" placeholder="无附件" />
+                    </div>
+                    <div class="form-group pull-left" style="clear: both;">
+                        <button type="button" id="btnAddReply" class="btn btn-default">提交</button>
+                    </div>
+                </form>
+            </div>
+            <div id="bottom-alert" class="bottom-item hidden">
+                <div id="bottom-item-close">&#9660;</div>
+                <div class="title">提示信息</div>
+                <div class="msg">信息内容</div>
+            </div>
+        </div>
     </body>
 </html>

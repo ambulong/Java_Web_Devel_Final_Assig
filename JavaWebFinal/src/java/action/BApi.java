@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import util.BSession;
  *
  * @author Ambulong
  */
+@MultipartConfig
 public class BApi extends HttpServlet {
 
     /**
@@ -37,7 +39,7 @@ public class BApi extends HttpServlet {
         bs.init();
         System.out.println(bs.getToken());
         //路由
-        BRouter br = new BRouter(request, response);
+        BRouter br = new BRouter(request, response, getServletContext().getRealPath("/"));
         br.init();
     }
 

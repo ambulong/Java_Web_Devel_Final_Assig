@@ -6,6 +6,7 @@ html,body {
 	width: 100%;
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
+        min-width: 70em;
 }
 
 div,span,a,ul,tr,li,p,img,button,input {
@@ -27,118 +28,399 @@ div,span,a,ul,tr,li,p,img,button,input {
 	display: none;
 }
 
-.page {
-	height: 100%;
-	width: 100%;
-	padding: 1em;
+#header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4em;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+    padding: 0 8em 0 8em;
+    over-flow: hidden;
+    background: #FFF;
+    z-index: 9999;
 }
 
-#page-login form {
-	max-width: 30em;
-	margin: 5% auto;
+.header-title{
+    height: 100%;
+    font-size: 1.5em;
+    padding-top:0.7em;
+    cursor: pointer;
+}
+.header-guest, .header-user{
+    height: 100%;
+}
+.header-guest div, .header-user div{
+    float:left;
+    height: 3em;
+    width: 3em;
+    margin: 0.6em 0.3em;
+    cursor: pointer;
 }
 
-#page-chgPassword form {
-	max-width: 30em;
-	margin: 5% auto;
+.icon-hover {
+    background: #F5F5F5;
 }
 
-#page-main .table-hover tbody tr {
-	cursor: pointer;
+.board-hover {
+    background: #F5F5F5;
 }
 
-#host-info {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 999;
-	float: left;
-	border:solid #ddd;
-	border-width: 0 1px 1px 0;
-	background: #fff;
+.header-guest div span, .header-user div span{
+    padding: 1em;
+    line-height: 4.5em;
+    margin-left: 0.5em;
 }
-#host-info .table-responsive {
-	width:100%;
-	max-width:35em;
+
+div.icon-login span{
+    background: url(./../images/icon-login.png) no-repeat;
+    background-size: 100% auto;
 }
-#host-info table {
-	margin: 0;
-	border:solid #ddd;
-	border-width: 0 0 1px 0;
+
+div.icon-register span{
+    background: url(./../images/icon-register.png) no-repeat;
+    background-size: 100% auto;
 }
-#host-info .btn {
-	width: 100%;
-	padding: 0.5em 1em;
-	text-align: right;
-	cursor: pointer;
-	background-color: #f5f5f5;
+
+div.icon-profile span{
+    background: url(./../images/icon-profile.png) no-repeat;
+    background-size: 100% auto;
 }
-.hover {
-	background-color: #f5f5f5;
+
+div.icon-password span{
+    background: url(./../images/icon-password.png) no-repeat;
+    background-size: 100% auto;
 }
-.hide {
-	display: none;
+
+div.icon-logout span{
+    background: url(./../images/icon-logout.png) no-repeat;
+    background-size: 100% auto;
 }
-#command {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
-	overflow: hidden;
+
+#main{
+    height: 100%;
+    padding: 4em 8em 0 8em;
 }
-#command .content{
-	width: 100%;
-	height: 100%;
-	overflow: auto;
+
+#tiplist {
+    padding: 0;
+    margin: 0;
 }
-#command .input {
-	padding: 0.4em 0 0.4em 4em;
+
+#boards {
+    position: relative;
+    float: left;
+    height: 4em;
+    padding:1em 0 0 0;
+    z-index: 666;
 }
-#command .input input[name='command'] {
-	width: 100%;
-	padding: 0.3em 0 0.3em 2em;
-	border: none;
+
+.board-item{
+    position: relative;
+    float: left;
+    padding: 0.3em 1em;
+    margin: 0.3em;
+    cursor: pointer;
 }
-#command .input span {
-	position: absolute;
-	top: 0;
-	padding: 0.7em 0.5em 0.7em 0.7em;
-	color: #008BFF;
-	font-weight: bold;
+
+.board-m-delete{
+    position: absolute;
+    top: -0.5em;
+    right: -1em;
+    padding: 0.2em 0.5em;
 }
-#command .content {
-	font-size: 0.7em;
+
+#board-all{
+    background: #42A5F5;
+    color: #FFF;
 }
-#command .content .result {
-	border: #EAEAEA solid;
-	border-width: 1px 0 0 0;
-	
+
+.for-admin, .for-user{
+    background: #E3F2FD;
+    font-size: 0.5em;
+    cursor: pointer;
 }
-#command .content .waiting {
-	border: #EAEAEA solid;
-	border-width: 1px 0 1px 0;
+
+#board-add {
+    position: absolute;
+    top: 1.3em;
+    right: -5em;
 }
-#command .content .item{
-	padding: 0.1em 0.5em;
+
+#sub-boards{
+    clear: both;
+    float: left;
+    position: relative;
+    height: 2em;
+    line-height: 2em;
+    padding-left: 5em;
+    z-index: 667;
 }
-#command .content .item span {
-	padding: 0 0.5em;
-	font-weight: bold;
+
+.sub-board-item{
+    position: relative;
+    float: left;
+    padding: 0 1em;
+    margin: 0;
+    cursor: pointer;
 }
-#command .content .waiting span {
-	color: #E0AA00;
+
+.sub-board-add{
+    position: absolute;
+    top: 0;
+    right: -5em;
 }
-#command .content .command span{
-	color: #236E25;
+
+.sub-board-m-delete{
+    position: absolute;
+    top: -0.5em;
+    right: -0.7em;
+    padding: 0 0.5em;
 }
-#command .content .response span{
-	color: #C7C7C7;
+
+#tips{
+    position: relative;
+    width: 100%;
 }
-#command .content .command{
-	color: #236E25;
+
+#addTip {
+    position: absolute;
+    top:2em;
+    right: 0;
+    padding: 0.2em 0.7em;
+    background: #F57C00;
+    color: #fff;
+    cursor: pointer;
 }
-#command .content .waiting {
-	color: #B56000;
+
+#tips table{
+    width: 100%;
+    border-bottom: 2px solid #ddd;
 }
-#command .content .response {
-	color: #747474;
+
+#tips table tr td{
+    position: relative;
+}
+
+#tips table tr th{
+    color: #969696;
+}
+
+#tips table tbody tr td{
+    height:2.6em;
+    line-height: 2.6em;
+    font-size: 1.1em;
+}
+
+
+#tips table tr td:first-child, #tips table tr th:first-child{
+    width: 70%;
+}
+
+#tips table tr td:first-child{
+    cursor: pointer;
+}
+
+.tip-delete{
+    position: absolute;
+    top: -0.3em;
+    right: -3.5em;
+    padding: 0.3em 0.5em;
+    height: 1.8em;
+    line-height: 1.5em;
+}
+
+.tip-edit{
+    position: absolute;
+    top: 1.7em;
+    right: -3.5em;
+    padding: 0.3em 0.5em;
+    height: 1.8em;
+    line-height: 1.5em;
+}
+
+#tipdetail {
+    position: relative;
+    width: 100%;
+    float: left;
+    padding:0;
+    max-width: 60em;
+}
+
+.tip, .reply{
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.tip-title{
+    line-height: 1.7em;
+    color: #FF9800;
+}
+
+.tip-board{
+    float:left;
+}
+.tip-reply{
+    float:right;
+    cursor: pointer;
+    padding: 0.2em 0.6em;
+    background: #DDD;
+    font-size: 1.2em;
+}
+
+.tip-author{
+    position: relative;
+    float: left;
+    padding: 0.5em 0;
+    font-size: 1.2em;
+}
+
+.tip-author img{
+    position: absolute;
+    top: 0;
+    left: 0em;
+    width: 3em;
+    height: 3em;
+    background: #DDD;
+    border-radius: 1.6em;
+    margin: 0 0.5em 0 0;
+}
+
+.tip-author span{
+    padding-left: 3.5em;
+    line-height: 1em;
+}
+
+.tip-pubtime{
+    float: right;
+    padding: 0.5em 0;
+    font-size: 1.1em;
+}
+
+.tip-content{
+    clear: both;
+    padding: 0.5em 0 1em 4.2em;
+}
+
+.reply-title{
+    line-height: 1.5em;
+}
+
+.reply-author{
+    position: relative;
+    float: left;
+    padding: 0.5em 0;
+    font-size: 1.2em;
+}
+
+.reply-author img{
+    position: absolute;
+    top: 0;
+    left: 0em;
+    width: 3em;
+    height: 3em;
+    background: #DDD;
+    border-radius: 1.6em;
+    margin: 0 0.5em 0 0;
+}
+
+.reply-author span{
+    padding-left: 3.5em;
+    line-height: 1em;
+}
+
+.reply-pubtime{
+    float: right;
+    padding: 0.5em 0;
+    font-size: 1.1em;
+}
+
+.reply-content{
+    clear: both;
+    padding: 0.5em 0 1em 4.2em;
+}
+
+#bottom{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #e9e9e9;
+    z-index: 777;
+}
+
+#bottom-alert{
+    padding: 0em 8em;
+    position: relative;
+    width: 100%;
+    min-height: 3em;
+    z-index: 888;
+}
+
+#bottom .title{
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+#bottom-alert .msg{
+    margin: 1em 0;
+}
+
+#bottom-item-close{
+    position: absolute;
+    top: 0;
+    right: 1.5em;
+    cursor: pointer;
+}
+
+#bottom-login{
+    padding: 0em 8em;
+    position: relative;
+    width: 100%;
+    height: 6em;
+}
+
+#bottom-register{
+    padding: 0em 8em;
+    position: relative;
+    width: 100%;
+    min-height: 6em;
+}
+
+#bottom-register form{
+    padding: 1em 0;
+}
+#bottom-register table{
+    width: 70%;
+}
+
+#bottom-register table td:first-child{
+    width: 60%;
+    padding-right: 4em;
+}
+
+#bottom-addBoard{
+    padding: 0em 8em;
+    position: relative;
+    width: 100%;
+    height: 6em;
+}
+
+#bottom-addTip{
+    padding: 1em 8em;
+    position: relative;
+    width: 100%;
+    min-height: 6em;
+}
+
+#bottom-editTip{
+    padding: 1em 8em;
+    position: relative;
+    width: 100%;
+    min-height: 6em;
+}
+
+#bottom-addReply{
+    padding: 1em 8em;
+    position: relative;
+    width: 100%;
+    min-height: 6em;
 }

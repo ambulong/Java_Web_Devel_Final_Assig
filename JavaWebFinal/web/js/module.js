@@ -1,7 +1,10 @@
 $(function () {
     $.extend({
         alertInfo: function (msg) {
-            alert(msg);
+            $("#bottom-alert .msg").html(msg);
+            if ($("#bottom-alert").hasClass("hidden")) {
+                $("#bottom-alert").removeClass("hidden")
+            }
         }
     });
 
@@ -9,6 +12,39 @@ $(function () {
         init: function () {
             var token = $.getToken();
             $.cookie("token", token);
+            if ($.getUid() == 0) {
+                $("#header .header-user").addClass("hidden");
+                $.each($(".for-admin"), function (index, item) {
+                    if (!$(item).hasClass("hidden")) {
+                        $(item).addClass("hidden");
+                    }
+                });
+                $.each($(".for-user"), function (index, item) {
+                    if (!$(item).hasClass("hidden")) {
+                        $(item).addClass("hidden");
+                    }
+                });
+            } else {
+                $("#header .header-guest").addClass("hidden");
+                $.each($(".for-user"), function (index, item) {
+                    if ($(item).hasClass("hidden")) {
+                        $(item).removeClass("hidden");
+                    }
+                });
+                if ($.getFlag() == 1) {
+                    $.each($(".for-admin"), function (index, item) {
+                        if ($(item).hasClass("hidden")) {
+                            $(item).removeClass("hidden");
+                        }
+                    });
+                } else if ($.getFlag() == 2) {
+                    $.each($(".for-admin"), function (index, item) {
+                        if (!$(item).hasClass("hidden")) {
+                            $(item).addClass("hidden");
+                        }
+                    });
+                }
+            }
         }
     });
 
@@ -21,14 +57,14 @@ $(function () {
                 dataType: "json",
                 url: "api?m=getToken&html=1&random=" + Math.random()
             }).done(function (json) {
-                if (json.status === 1) {
+                if (json.status == 1) {
                     token = json.data[0].token;
                 }
             });
             return token;
         }
     });
-    
+
     $.extend({
         getUid: function () {
             var uid = "";
@@ -42,19 +78,40 @@ $(function () {
                     "token": token
                 }
             }).done(function (json) {
-                if (json.status === 1) {
+                if (json.status == 1) {
                     uid = json.data[0].id;
                 }
-                if (json.status === -1)
-                    $.alertInfo(json.msg);
+                if (json.status == -1)
+                    uid = 0;
             });
             return uid;
         }
     });
-    
+
+    $.extend({
+        getFlag: function () {
+            var flag = "";
+            var token = $.cookie("token");
+            $.ajax({
+                type: "POST",
+                async: false,
+                dataType: "json",
+                url: "api?m=getFlag&html=1&random=" + Math.random(),
+                data: {
+                    "token": token
+                }
+            }).done(function (json) {
+                if (json.status == 1) {
+                    flag = json.data[0].flag;
+                }
+            });
+            return flag;
+        }
+    });
+
     $.extend({
         getUserInfo: function () {
-            var uid = "";
+            var list = {};
             var token = $.cookie("token");
             $.ajax({
                 type: "POST",
@@ -65,16 +122,16 @@ $(function () {
                     "token": token
                 }
             }).done(function (json) {
-                if (json.status === 1) {
-                    uid = json.data[0];
+                if (json.status == 1) {
+                    list = json.data[0];
                 }
-                if (json.status === -1)
+                if (json.status == -1)
                     $.alertInfo(json.msg);
             });
-            return uid;
+            return list;
         }
     });
-    
+
     $.extend({
         register: function (usr, pwd, age, head, gender) {
             var token = $.cookie("token");
@@ -83,7 +140,7 @@ $(function () {
                 type: "POST",
                 async: false,
                 dataType: "json",
-                url: "api?m=updateProfile&html=1&random=" + Math.random(),
+                url: "api?m=register&html=1&random=" + Math.random(),
                 data: {
                     "token": token,
                     "username": usr,
@@ -208,7 +265,7 @@ $(function () {
                     "token": token
                 }
             }).done(function (json) {
-                if (json.status === 1)
+                if (json.status == 1)
                     list = json.data;
                 else if (status == -1)
                     $.alertInfo(json.msg);
@@ -217,7 +274,7 @@ $(function () {
             return list;
         }
     });
-    
+
     $.extend({
         getTips: function (bid) {
             var token = $.cookie("token");
@@ -232,7 +289,7 @@ $(function () {
                     "bid": bid
                 }
             }).done(function (json) {
-                if (json.status === 1)
+                if (json.status == 1)
                     list = json.data;
                 else if (status == -1)
                     $.alertInfo(json.msg);
@@ -241,7 +298,7 @@ $(function () {
             return list;
         }
     });
-    
+
     $.extend({
         getTipDetail: function (id) {
             var token = $.cookie("token");
@@ -256,7 +313,7 @@ $(function () {
                     "id": id
                 }
             }).done(function (json) {
-                if (json.status === 1)
+                if (json.status == 1)
                     list = json.data;
                 else if (status == -1)
                     $.alertInfo(json.msg);
@@ -265,7 +322,7 @@ $(function () {
             return list;
         }
     });
-    
+
     $.extend({
         getReplies: function (tid) {
             var token = $.cookie("token");
@@ -280,7 +337,7 @@ $(function () {
                     "tid": tid
                 }
             }).done(function (json) {
-                if (json.status === 1)
+                if (json.status == 1)
                     list = json.data;
                 else if (status == -1)
                     $.alertInfo(json.msg);
@@ -289,7 +346,7 @@ $(function () {
             return list;
         }
     });
-    
+
     $.extend({
         addBoard: function (name, pid) {
             var token = $.cookie("token");
@@ -312,7 +369,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         updateBoard: function (id, name, pid) {
             var token = $.cookie("token");
@@ -336,7 +393,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         deleteBoard: function (id) {
             var token = $.cookie("token");
@@ -358,7 +415,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         addTip: function (bid, title, content, realfile, makefile) {
             var token = $.cookie("token");
@@ -384,7 +441,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         updateTip: function (id, bid, title, content, realfile, makefile) {
             var token = $.cookie("token");
@@ -411,7 +468,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         deleteTip: function (id) {
             var token = $.cookie("token");
@@ -433,7 +490,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         addReply: function (tid, title, content, realfile, makefile) {
             var token = $.cookie("token");
@@ -459,7 +516,7 @@ $(function () {
             return status;
         }
     });
-    
+
     $.extend({
         deleteReply: function (id) {
             var token = $.cookie("token");
@@ -481,6 +538,60 @@ $(function () {
             return status;
         }
     });
-    
-    
+
+
+    $.extend({
+        hideAllBottomItem: function () {
+            $.each($(".bottom-item"), function (index, item) {
+                if (!$(item).hasClass("hidden")) {
+                    $(item).addClass("hidden");
+                }
+            });
+        }
+    });
+    $.extend({
+        hideAllPage: function () {
+            $.each($(".page"), function (index, item) {
+                if (!$(item).hasClass("hidden")) {
+                    $(item).addClass("hidden");
+                }
+            });
+        }
+    });
+    $.extend({
+        showLoginPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-login").removeClass("hidden");
+        }
+    });
+    $.extend({
+        showRegisterPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-register").removeClass("hidden");
+        }
+    });
+    $.extend({
+        showAddBoardPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-addBoard").removeClass("hidden");
+        }
+    });
+    $.extend({
+        showAddTipPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-addTip").removeClass("hidden");
+        }
+    });
+    $.extend({
+        showEditTipPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-editTip").removeClass("hidden");
+        }
+    });
+    $.extend({
+        showAddReplyPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-addReply").removeClass("hidden");
+        }
+    });
 });
