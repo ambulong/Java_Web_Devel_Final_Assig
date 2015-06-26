@@ -2,6 +2,15 @@
 
 JAVA WEB开发课程设计
 
+*由于时间仓卒，前端并未作兼容性测试，为了保证最佳使用效果，请使用Google Chrome(版本 43.0.2357.125 (64-bit))*
+
+###开发环境
+ - NetBeans IDE 8.0.2 (Build 201411181905)
+ - Java: 1.8.0_45; OpenJDK 64-Bit Server VM 25.45-b02
+ - Runtime: OpenJDK Runtime Environment 1.8.0_45-b14
+ - System: Linux version 4.0.4-202.fc21.x86_64 running on amd64; UTF-8; zh_CN (nb)
+ - Apache Tomcat/8.0.21
+
 ##设计
 
 ###地址

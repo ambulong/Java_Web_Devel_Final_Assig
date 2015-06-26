@@ -18,20 +18,17 @@ import util.BFunctions;
  * @author Ambulong
  */
 public class BBoard {
-    private Connection conn;
-    
+
     public BBoard() throws Exception {
+
+    }
+
+    public boolean isExistID(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
             BConnectDB cdb = new BConnectDB();
-            this.conn = cdb.getConnectDB();
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-    
-    public boolean isExistID(int id) throws Exception {
-        try {
-            PreparedStatement ps = null;
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from board where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -46,16 +43,26 @@ public class BBoard {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public boolean add(BBoardBean bbb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!bbb.validate()) {
                 return false;
             }
-            
-            PreparedStatement ps = null;
+
             String sql = "insert into board(`name`, `pid`) values(?,?)";
             ps = conn.prepareStatement(sql);
 
@@ -71,16 +78,26 @@ public class BBoard {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public boolean update(BBoardBean bbb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!bbb.validate()) {
                 return false;
             }
-            
-            PreparedStatement ps = null;
+
             String sql = "update board set `name` = ?, `pid` = ? where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -97,16 +114,26 @@ public class BBoard {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public boolean delete(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return false;
             }
-            
-            PreparedStatement ps = null;
+
             String sql = "delete from board where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -121,12 +148,22 @@ public class BBoard {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public boolean hasChildren(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from board where `pid` = ?";
             ps = conn.prepareStatement(sql);
@@ -141,15 +178,25 @@ public class BBoard {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public String getName(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from board where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -160,15 +207,25 @@ public class BBoard {
             return rs.getString("name");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public BBoardBean getDetail(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return null;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from board where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -176,60 +233,80 @@ public class BBoard {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             rs.first();
-            
+
             BBoardBean bbb = new BBoardBean();
             bbb.setId(rs.getInt("id"));
             bbb.setName(rs.getString("name"));
             bbb.setPid(rs.getInt("pid"));
             ps.close();
-            
+
             return bbb;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public BBoardBean[] getChildren(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return null;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from board where `id` = ?";
             ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            
+
             BBoardBean[] bbbs = null;
-            
-            int i=0;
-            if(rs.next()){
+
+            int i = 0;
+            if (rs.next()) {
                 bbbs[i].setId(rs.getInt("id"));
                 bbbs[i].setName(rs.getString("name"));
                 bbbs[i].setPid(rs.getInt("pid"));
                 i++;
             }
-            
+
             return bbbs;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public List<BBoardBean> getBoardList() throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from board";
             ps = conn.prepareStatement(sql);
-            
+
             rs = ps.executeQuery();
-            
+
             List<BBoardBean> list = new ArrayList<BBoardBean>();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 System.out.println(rs.getString("name"));
                 BBoardBean bbb = new BBoardBean();
                 bbb = new BBoardBean();
@@ -238,10 +315,17 @@ public class BBoard {
                 bbb.setPid(rs.getInt("pid"));
                 list.add(bbb);
             }
-            
+
             return list;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 }

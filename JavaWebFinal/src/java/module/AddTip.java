@@ -51,7 +51,7 @@ public class AddTip {
         String realfile = this.request.getParameter("realfile") != null ? this.request.getParameter("realfile").trim() : "";
         String makefile = this.request.getParameter("makefile") != null ? this.request.getParameter("makefile").trim() : "";
         
-        if (bb.isExistID(bid)) {
+        if (!bb.isExistID(bid)) {
             brj.resp(-1, "板块不存在", null);
             return;
         }
@@ -64,7 +64,7 @@ public class AddTip {
         btb.setTitle(title);
         btb.setUid(bs.getUid());
         
-        if(btb.validate()){
+        if(!btb.validate()){
             brj.resp(-1, "数据错误", null);
             return;
         }

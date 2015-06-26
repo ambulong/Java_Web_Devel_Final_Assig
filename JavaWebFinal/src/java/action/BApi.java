@@ -34,6 +34,7 @@ public class BApi extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
+        request.setCharacterEncoding("UTF-8");
         //会话
         BSession bs = new BSession(request);
         bs.init();

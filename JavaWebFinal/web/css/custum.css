@@ -37,7 +37,7 @@ div,span,a,ul,tr,li,p,img,button,input {
     padding: 0 8em 0 8em;
     over-flow: hidden;
     background: #FFF;
-    z-index: 9999;
+    z-index: 888;
 }
 
 .header-title{
@@ -340,7 +340,7 @@ div.icon-logout span{
 }
 
 #bottom{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #e9e9e9;
@@ -378,21 +378,21 @@ div.icon-logout span{
     height: 6em;
 }
 
-#bottom-register{
+#bottom-register, #bottom-profile{
     padding: 0em 8em;
     position: relative;
     width: 100%;
     min-height: 6em;
 }
 
-#bottom-register form{
+#bottom-register form, #bottom-profile form{
     padding: 1em 0;
 }
-#bottom-register table{
+#bottom-register table, #bottom-profile table{
     width: 70%;
 }
 
-#bottom-register table td:first-child{
+#bottom-register table td:first-child, #bottom-profile table td:first-child{
     width: 60%;
     padding-right: 4em;
 }
@@ -423,4 +423,8 @@ div.icon-logout span{
     position: relative;
     width: 100%;
     min-height: 6em;
+}
+
+.profile-username label{
+    padding: 7px 0;
 }

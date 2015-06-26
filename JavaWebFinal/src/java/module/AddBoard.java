@@ -59,6 +59,7 @@ public class AddBoard {
 
         String name = this.request.getParameter("name") != null ? this.request.getParameter("name").trim() : "";
         int pid = this.request.getParameter("pid") != null ? Integer.parseInt(this.request.getParameter("pid").trim()) : 0;
+        System.out.println("AddBoard: "+ name);
         if (name.equals("")) {
             brj.resp(-1, "板块名不能为空不存在", null);
             return;

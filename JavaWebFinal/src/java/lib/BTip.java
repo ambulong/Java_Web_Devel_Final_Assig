@@ -19,20 +19,16 @@ import util.BFunctions;
  */
 public class BTip {
 
-    private Connection conn;
-
     public BTip() throws Exception {
-        try {
-            BConnectDB cdb = new BConnectDB();
-            this.conn = cdb.getConnectDB();
-        } catch (Exception e) {
-            throw e;
-        }
+
     }
 
     public boolean isExistID(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from tip where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -47,16 +43,26 @@ public class BTip {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean add(BTipBean btb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!btb.validate()) {
                 return false;
             }
 
-            PreparedStatement ps = null;
             String sql = "insert into tip(`title`, `content`, `pubtime`, `uid`, `bid`, `realfile`, `makefile`) values(?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
 
@@ -77,11 +83,22 @@ public class BTip {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean update(BTipBean btb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(btb.getId())) {
                 return false;
             }
@@ -89,7 +106,6 @@ public class BTip {
                 return false;
             }
 
-            PreparedStatement ps = null;
             String sql = "update tip set `title` = ?, `content` = ?, `pubtime` = ?, `uid` = ?, `bid` = ?, `realfile` = ?, `makefile` = ? where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -111,16 +127,26 @@ public class BTip {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public boolean delete(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return false;
             }
-            
-            PreparedStatement ps = null;
+
             String sql = "delete from tip where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -135,15 +161,25 @@ public class BTip {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public String getTitle(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from tip where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -154,15 +190,25 @@ public class BTip {
             return rs.getString("title");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public String getContent(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from tip where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -173,15 +219,25 @@ public class BTip {
             return rs.getString("content");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public BTipBean getDetail(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return null;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from tip where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -189,7 +245,7 @@ public class BTip {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             rs.first();
-            
+
             BTipBean btb = new BTipBean();
             btb.setBid(rs.getInt("bid"));
             btb.setContent(rs.getString("content"));
@@ -199,33 +255,42 @@ public class BTip {
             btb.setRealfile(rs.getString("realfile"));
             btb.setTitle(rs.getString("title"));
             btb.setUid(rs.getInt("uid"));
-            
+
             return btb;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
-    
+
     public List<BTipBean> getTipList(int bid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
-            if(bid == 0){
+            if (bid == 0) {
                 String sql = "select * from tip order by `id` desc";
                 ps = conn.prepareStatement(sql);
-            }else{
+            } else {
                 String sql = "select * from tip where `bid` = ? order by `id` desc";
-                
+
                 ps = conn.prepareStatement(sql);
-                
+
                 ps.setInt(1, bid);
             }
             rs = ps.executeQuery();
-            
+
             List<BTipBean> list = new ArrayList<BTipBean>();
-            
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 BTipBean btb = new BTipBean();
                 btb.setBid(rs.getInt("bid"));
                 btb.setContent(rs.getString("content"));
@@ -235,13 +300,20 @@ public class BTip {
                 btb.setRealfile(rs.getString("realfile"));
                 btb.setTitle(rs.getString("title"));
                 btb.setUid(rs.getInt("uid"));
-                
+
                 list.add(btb);
             }
-            
+
             return list;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 }

@@ -44,6 +44,17 @@ $(function () {
                         }
                     });
                 }
+
+                var json = $.getBoards();
+                var html = '';
+                $.each(json, function (index, item) {
+                    html = html + '<option value="' + item.id + '">' + item.name + '</option>';
+                });
+                $("#inputAddTipBoard").html(html);
+                $("#inputEditTipBoard").html(html);
+                
+                var info = $.getUserInfo();
+                $(".header-title").text(info.username);
             }
         }
     });
@@ -253,14 +264,16 @@ $(function () {
 
 
     $.extend({
-        getBoards: function () {
+        getBoards: function (html) {
             var token = $.cookie("token");
             var list = {};
+            if(html == null)
+                html = 1;
             $.ajax({
                 type: "POST",
                 async: false,
                 dataType: "json",
-                url: "api?m=getBoards&html=1&random=" + Math.random(),
+                url: "api?m=getBoards&html="+html+"&random=" + Math.random(),
                 data: {
                     "token": token
                 }
@@ -300,21 +313,23 @@ $(function () {
     });
 
     $.extend({
-        getTipDetail: function (id) {
+        getTipDetail: function (id, html) {
             var token = $.cookie("token");
             var list = {};
+            if(html == null)
+                html = 1;
             $.ajax({
                 type: "POST",
                 async: false,
                 dataType: "json",
-                url: "api?m=getTipDetail&html=1&random=" + Math.random(),
+                url: "api?m=getTipDetail&html="+html+"&random=" + Math.random(),
                 data: {
                     "token": token,
                     "id": id
                 }
             }).done(function (json) {
                 if (json.status == 1)
-                    list = json.data;
+                    list = json.data[0];
                 else if (status == -1)
                     $.alertInfo(json.msg);
 
@@ -558,40 +573,7 @@ $(function () {
             });
         }
     });
-    $.extend({
-        showLoginPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-login").removeClass("hidden");
-        }
-    });
-    $.extend({
-        showRegisterPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-register").removeClass("hidden");
-        }
-    });
-    $.extend({
-        showAddBoardPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-addBoard").removeClass("hidden");
-        }
-    });
-    $.extend({
-        showAddTipPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-addTip").removeClass("hidden");
-        }
-    });
-    $.extend({
-        showEditTipPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-editTip").removeClass("hidden");
-        }
-    });
-    $.extend({
-        showAddReplyPanel: function () {
-            $.hideAllBottomItem();
-            $("#bottom-addReply").removeClass("hidden");
-        }
-    });
+
+
+
 });

@@ -55,7 +55,7 @@ public class UpdateBoard {
             brj.resp(-1, "板块名不能为空", null);
             return;
         }
-        if(bb.isExistID(id)){
+        if(!bb.isExistID(id)){
             brj.resp(-1, "板块不存在", null);
             return;
         }

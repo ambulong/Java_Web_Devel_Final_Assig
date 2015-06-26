@@ -18,21 +18,16 @@ import util.BFunctions;
  * @author Ambulong
  */
 public class BReply {
-
-    private Connection conn;
-
-    public BReply() throws Exception {
-        try {
-            BConnectDB cdb = new BConnectDB();
-            this.conn = cdb.getConnectDB();
-        } catch (Exception e) {
-            throw e;
-        }
+public BReply() throws Exception {
+        
     }
 
     public boolean isExistID(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from reply where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -47,16 +42,26 @@ public class BReply {
             }
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean add(BReplyBean brb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!brb.validate()) {
                 return false;
             }
 
-            PreparedStatement ps = null;
             String sql = "insert into reply(`title`, `content`, `pubtime`, `uid`, `tid`, `realfile`, `makefile`) values(?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
 
@@ -77,11 +82,22 @@ public class BReply {
             }
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean update(BReplyBean brb) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(brb.getId())) {
                 return false;
             }
@@ -89,7 +105,6 @@ public class BReply {
                 return false;
             }
 
-            PreparedStatement ps = null;
             String sql = "update reply set `title` = ?, `content` = ?, `pubtime` = ?, `uid` = ?, `tid` = ?, `realfile` = ?, `makefile` = ? where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -111,16 +126,26 @@ public class BReply {
             }
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean delete(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return false;
             }
 
-            PreparedStatement ps = null;
             String sql = "delete from reply where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -135,15 +160,25 @@ public class BReply {
             }
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public String getTitle(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from reply where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -154,15 +189,25 @@ public class BReply {
             return rs.getString("title");
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public String getContent(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from reply where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -173,15 +218,25 @@ public class BReply {
             return rs.getString("content");
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public BReplyBean getDetail(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(id)) {
                 return null;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from reply where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -203,15 +258,25 @@ public class BReply {
             return brb;
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public List<BReplyBean> getReplyList(int tid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
 
-            String sql = "select * from reply where `tid` = ? order by `id` desc";
+            String sql = "select * from reply where `tid` = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, tid);
             
@@ -235,6 +300,13 @@ public class BReply {
             return list;
         } catch (Exception e) {
             throw e;
+        }finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ public class UpdateProfile {
             if (!buser.updateProfile(bub)) {
                 brj.resp(-1, "更改失败", null);
             } else {
-                brj.resp(0, "更改成功", null);
+                brj.resp(1, "更改成功", null);
             }
         }
     }

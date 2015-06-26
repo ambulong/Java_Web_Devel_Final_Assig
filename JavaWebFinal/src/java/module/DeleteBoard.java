@@ -49,7 +49,7 @@ public class DeleteBoard {
         BBoard bb = new BBoard();
         
         int id = this.request.getParameter("id") != null ? Integer.parseInt(this.request.getParameter("id").trim()) : 0;
-        if(bb.isExistID(id)){
+        if(!bb.isExistID(id)){
             brj.resp(-1, "板块不存在", null);
             return;
         }

@@ -5,6 +5,13 @@
  */
 
 $(function () {
+    $.extend({
+        showLoginPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-login").removeClass("hidden");
+        }
+    });
+   
     $(".icon-login").live("click", function () {
         $.showLoginPanel();
     });

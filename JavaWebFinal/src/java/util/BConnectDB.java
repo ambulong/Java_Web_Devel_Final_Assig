@@ -17,7 +17,7 @@ import javax.servlet.ServletContext;
 public class BConnectDB {
 
     private String driver = "com.mysql.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/test";
+    private String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8";
     private String user = "test";
     private String passwd = "test";
 

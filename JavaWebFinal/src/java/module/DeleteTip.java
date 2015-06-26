@@ -50,7 +50,7 @@ public class DeleteTip {
             brj.resp(-1, "没有权限", null);
             return;
         }
-        if(bt.isExistID(id)){
+        if(!bt.isExistID(id)){
             brj.resp(-1, "帖子不存在", null);
             return;
         }

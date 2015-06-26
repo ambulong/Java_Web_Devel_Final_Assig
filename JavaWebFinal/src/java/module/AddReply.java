@@ -52,7 +52,7 @@ public class AddReply {
         String realfile = this.request.getParameter("realfile") != null ? this.request.getParameter("realfile").trim() : "";
         String makefile = this.request.getParameter("makefile") != null ? this.request.getParameter("makefile").trim() : "";
         
-        if (bt.isExistID(tid)) {
+        if (!bt.isExistID(tid)) {
             brj.resp(-1, "帖子不存在", null);
             return;
         }
@@ -65,7 +65,7 @@ public class AddReply {
         brb.setTitle(title);
         brb.setUid(bs.getUid());
         
-        if(brb.validate()){
+        if(!brb.validate()){
             brj.resp(-1, "数据错误", null);
             return;
         }

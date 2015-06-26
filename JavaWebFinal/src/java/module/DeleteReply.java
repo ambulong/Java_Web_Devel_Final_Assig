@@ -49,7 +49,7 @@ public class DeleteReply {
             brj.resp(-1, "没有权限", null);
             return;
         }
-        if(br.isExistID(id)){
+        if(!br.isExistID(id)){
             brj.resp(-1, "评论不存在", null);
             return;
         }

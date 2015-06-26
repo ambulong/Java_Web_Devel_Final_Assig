@@ -5,6 +5,12 @@
  */
 
 $(function () {
+     $.extend({
+        showRegisterPanel: function () {
+            $.hideAllBottomItem();
+            $("#bottom-register").removeClass("hidden");
+        }
+    });
     $(".icon-register").live("click", function () {
         $.showRegisterPanel();
     });

@@ -16,6 +16,7 @@ import lib.BBoard;
 import lib.BTip;
 import lib.BTipBean;
 import lib.BUser;
+import org.apache.commons.lang.StringEscapeUtils;
 import util.BFunctions;
 import util.BRespJson;
 import util.BSession;
@@ -25,6 +26,7 @@ import util.BSession;
  * @author Ambulong
  */
 public class GetTips {
+
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
@@ -32,7 +34,7 @@ public class GetTips {
         this.request = request;
         this.response = response;
     }
-    
+
     public void init() throws IOException, Exception {
         BRespJson brj = new BRespJson(request, response);
         BSession bs = new BSession(request);
@@ -41,33 +43,45 @@ public class GetTips {
             brj.resp(-1, "Invalid Token", null);
             return;
         }
-        
+
         BBoard bb = new BBoard();
+        int escape = this.request.getParameter("html") != null ? Integer.parseInt(this.request.getParameter("html").trim()) : 0;
         int bid = this.request.getParameter("bid") != null ? Integer.parseInt(this.request.getParameter("bid").trim()) : -1;
-        if(bid != 0 && !bb.isExistID(bid)){
+        if (bid != 0 && !bb.isExistID(bid)) {
             brj.resp(-1, "板块不存在", null);
             return;
         }
-        
+
         BTip bt = new BTip();
         List<BTipBean> btbs = bt.getTipList(bid);
         BUser bu = new BUser();
-        
+
         List<Map> dataList = new ArrayList<Map>();
-        for(int i=0; i<btbs.size(); i++){
-            Map<String, String> map = new<String, String> HashMap();  
+        for (int i = 0; i < btbs.size(); i++) {
+            Map<String, String> map = new <String, String> HashMap();
             //map.put( "content", btbs.get(i).getContent() );
             //map.put( "makefile", btbs.get(i).getMakefile() );
-            map.put( "pubtime", btbs.get(i).getPubtime() );
-            //map.put( "realfile", btbs.get(i).getRealfile() );
-            map.put( "title", btbs.get(i).getTitle() );
-            map.put( "bid", btbs.get(i).getBid()+"" );
-            map.put( "id", btbs.get(i).getId()+"" );
-            map.put( "uid", btbs.get(i).getUid()+"" );
-            map.put( "author", bu.getUsername(btbs.get(i).getUid()) );
+            if (escape == 1) {
+                map.put("pubtime", StringEscapeUtils.escapeHtml(btbs.get(i).getPubtime()));
+                //map.put( "realfile", btbs.get(i).getRealfile() );
+                map.put("title", StringEscapeUtils.escapeHtml(btbs.get(i).getTitle()));
+                map.put("bid", StringEscapeUtils.escapeHtml(btbs.get(i).getBid() + ""));
+                map.put("board", StringEscapeUtils.escapeHtml(bb.getName(btbs.get(i).getBid())));
+                map.put("id", StringEscapeUtils.escapeHtml(btbs.get(i).getId() + ""));
+                map.put("uid", StringEscapeUtils.escapeHtml(btbs.get(i).getUid() + ""));
+                map.put("author", StringEscapeUtils.escapeHtml(bu.getUsername(btbs.get(i).getUid())));
+            } else {
+                map.put("pubtime", btbs.get(i).getPubtime());
+                //map.put( "realfile", btbs.get(i).getRealfile() );
+                map.put("title", btbs.get(i).getTitle());
+                map.put("bid", btbs.get(i).getBid() + "");
+                map.put("board", bb.getName(btbs.get(i).getBid()));
+                map.put("id", btbs.get(i).getId() + "");
+                map.put("uid", btbs.get(i).getUid() + "");
+                map.put("author", bu.getUsername(btbs.get(i).getUid()));
+            }
             dataList.add(map);
         }
-
         //System.out.println("getUid: "+map.toString());
         brj.resp(1, "", dataList);
         return;

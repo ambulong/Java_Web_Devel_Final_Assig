@@ -17,20 +17,15 @@ import util.BFunctions;
  */
 public class BUser {
 
-    private Connection conn;
-
     public BUser() throws Exception {
-        try {
-            BConnectDB cdb = new BConnectDB();
-            this.conn = cdb.getConnectDB();
-        } catch (Exception e) {
-            throw e;
-        }
     }
 
     public boolean isExistID(int id) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -45,13 +40,23 @@ public class BUser {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean isExistName(String str) throws Exception {
         str = str.trim();
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
-            PreparedStatement ps = null;
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             ResultSet rs = null;
             String sql = "select * from user where `username` = ?";
             ps = conn.prepareStatement(sql);
@@ -66,18 +71,28 @@ public class BUser {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean add(BUserBean bub) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!bub.validate()) {
                 return false;
             }
             if (this.isExistName(bub.getUsername())) {
                 return false;
             }
-            PreparedStatement ps = null;
             String sql = "insert into user(`username`, `password`, `age`, `regtime`, `head`, `gender`, `flag`) values(?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
 
@@ -99,12 +114,23 @@ public class BUser {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean chkLogin(String usr, String pwd) throws Exception {
         usr = usr.trim();
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistName(usr)) {
                 return false;
             }
@@ -116,9 +142,13 @@ public class BUser {
             throw e;
         }
     }
-    
+
     public boolean chkLogin(int uid, String pwd) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return false;
             }
@@ -131,14 +161,17 @@ public class BUser {
     }
 
     public boolean updateProfile(BUserBean bub) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(bub.getId())) {
                 return false;
             }
             if (!bub.validateProfile()) {
                 return false;
             }
-            PreparedStatement ps = null;
             String sql = "update user set `age` = ?, `head` = ?, `gender` = ? where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -156,18 +189,28 @@ public class BUser {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public boolean updatePassword(int uid, String pwd) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return false;
             }
-            if(pwd.length() <= 6){
+            if (pwd.length() <= 6) {
                 return false;
             }
-            PreparedStatement ps = null;
             String sql = "update user set `password` = ? where `id` = ?";
             ps = conn.prepareStatement(sql);
 
@@ -184,16 +227,26 @@ public class BUser {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public int getID(String usr) throws Exception {
         usr = usr.trim();
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistName(usr)) {
                 return 0;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `username` = ?";
             ps = conn.prepareStatement(sql);
@@ -204,15 +257,25 @@ public class BUser {
             return rs.getInt("id");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public int getFlag(int uid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return 0;
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -223,6 +286,13 @@ public class BUser {
             return rs.getInt("flag");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
@@ -235,11 +305,14 @@ public class BUser {
     }
 
     public String getHash(int uid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -250,15 +323,25 @@ public class BUser {
             return rs.getString("password");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public String getHead(int uid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -269,15 +352,25 @@ public class BUser {
             return rs.getString("head");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public String getUsername(int uid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return "";
             }
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -288,16 +381,26 @@ public class BUser {
             return rs.getString("username");
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 
     public BUserBean getDetail(int uid) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
         try {
+            BConnectDB cdb = new BConnectDB();
+            conn = cdb.getConnectDB();
             if (!this.isExistID(uid)) {
                 return null;
             }
             BUserBean bub = new BUserBean();
-            PreparedStatement ps = null;
             ResultSet rs = null;
             String sql = "select * from user where `id` = ?";
             ps = conn.prepareStatement(sql);
@@ -315,6 +418,13 @@ public class BUser {
             return bub;
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 }

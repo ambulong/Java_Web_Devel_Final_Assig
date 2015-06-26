@@ -56,11 +56,11 @@ public class UpdateTip {
             brj.resp(-1, "没有权限", null);
             return;
         }
-        if(bt.isExistID(id)){
+        if(!bt.isExistID(id)){
             brj.resp(-1, "帖子不存在", null);
             return;
         }
-        if (bb.isExistID(bid)) {
+        if (!bb.isExistID(bid)) {
             brj.resp(-1, "板块不存在", null);
             return;
         }
@@ -74,7 +74,7 @@ public class UpdateTip {
         btb.setTitle(title);
         btb.setUid(bs.getUid());
         
-        if(btb.validate()){
+        if(!btb.validate()){
             brj.resp(-1, "数据错误", null);
             return;
         }
